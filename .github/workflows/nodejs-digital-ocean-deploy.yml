@@ -44,7 +44,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ".,!node_modules"
-          target: "~/nome-do-seu-repo"
+          target: "~/Compensas-Backend"
 
       - name: Run production scripts on Digital Ocean
         uses: appleboy/ssh-action@master
@@ -57,6 +57,6 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             npm --help
-            cd ~/nome-do-seu-repo 
+            cd ~/Compensas-Backend 
             yarn prisma migrate deploy
-            pm2 restart nome-do-seu-server
+            pm2 restart compensas
