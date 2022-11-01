@@ -11,8 +11,8 @@ const usersController = new UsersController();
 
 usersRoutes.post('/register',
   body('email').isEmail().withMessage('Invalid Email'),
-  body('name').isEmpty().withMessage('Invalid name'),
-  body('password').isEmpty().withMessage('Invalid password'),
+  body('name').not().isEmpty().withMessage('Invalid name'),
+  body('password').not().isEmpty().withMessage('Invalid password'),
   validatorErrorHandler, usersController.create);
 
 export default usersRoutes;
