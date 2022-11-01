@@ -9,7 +9,6 @@ export default function validatorErrorHandler(
   next: NextFunction,
 ): void {
   const validatorErrors = validationResult(request);
-  console.log(validatorErrors);
 
   if (!validatorErrors.isEmpty()) throw new AppError(validatorErrors.array()[0].msg, 400);
 
