@@ -8,8 +8,6 @@ export default class UserController {
     const {
       name,
       email,
-      cpf,
-      phone,
       password,
     } = req.body;
 
@@ -18,8 +16,6 @@ export default class UserController {
     const user = await createUser.execute({
       name,
       email,
-      cpf,
-      phone,
       password,
     });
 
