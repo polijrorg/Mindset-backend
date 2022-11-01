@@ -1,7 +1,7 @@
-import exemplePaths from './user';
+import userPaths from './user';
 
 const paths = {
-  ...exemplePaths,
+  ...userPaths,
 };
 
 export default paths;

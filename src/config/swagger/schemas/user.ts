@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 
 const userComponent: OpenAPIV3.ComponentsObject['schemas'] = {
-  ComponentExample: {
+  user: {
     type: 'object',
     properties: {
       id: {
