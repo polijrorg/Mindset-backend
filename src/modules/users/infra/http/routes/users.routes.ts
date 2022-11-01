@@ -9,6 +9,10 @@ const usersRoutes = Router();
 
 const usersController = new UsersController();
 
-usersRoutes.post('/register', body('email').isEmail().withMessage('Invalid Email'), validatorErrorHandler, usersController.create);
+usersRoutes.post('/register',
+  body('email').isEmail().withMessage('Invalid Email'),
+  body('name').isEmpty().withMessage('Invalid name'),
+  body('password').isEmpty().withMessage('Invalid password'),
+  validatorErrorHandler, usersController.create);
 
 export default usersRoutes;
