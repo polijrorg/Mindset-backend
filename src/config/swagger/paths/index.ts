@@ -1,4 +1,4 @@
-import exemplePaths from './example';
+import exemplePaths from './user';
 
 const paths = {
   ...exemplePaths,

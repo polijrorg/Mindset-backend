@@ -1,4 +1,4 @@
-import exempleSchema from './example';
+import exempleSchema from './user';
 
 const schema = {
   ...exempleSchema,
