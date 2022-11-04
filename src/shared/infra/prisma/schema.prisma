@@ -8,15 +8,33 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Users {
-  id                 String   @id @default(uuid())
+model Appointment {
+  id               String   @id @default(uuid())
+  companyId        String
+  company          User     @relation(fields: [companyId], references: [id])
+  patientId        String
+  doctorId         String
+  doctorSpeciality String
+  transport        String
+  fuel             String
+  state            String
+  generatedCC      Float
+  distance         Float
+  created_at       DateTime @default(now())
+
+  @@map("appointment")
+}
+
+model User {
+  id                 String        @id @default(uuid())
   name               String
-  email              String   @unique
+  email              String        @unique
   password           String
-  defaultTransport   String   @default("Car")
-  defaultFuel        String   @default("Gasoline")
-  enableResoluteness Boolean  @default(true)
-  created_at         DateTime @default(now())
+  defaultTransport   String        @default("Car")
+  defaultFuel        String        @default("Gasoline")
+  enableResoluteness Boolean       @default(true)
+  appointments       Appointment[]
+  created_at         DateTime      @default(now())
 
   @@map("user")
 }

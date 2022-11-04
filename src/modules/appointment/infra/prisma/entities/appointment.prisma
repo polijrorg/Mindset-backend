@@ -1,0 +1,23 @@
+model Appointment {
+  id               String   @id @default(uuid())
+  patientId        String
+  doctorId         String
+  doctorSpeciality String
+  transport        String
+  fuel             String
+  state            String
+  generatedCC      Float
+  distance         Float
+  companyId        String
+  company          User     @relation(fields: [companyId], references: [id])
+  created_at       DateTime @default(now())
+
+  @@map("appointment")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  appointments Appointment[]
+
+  @@map("user")
+}

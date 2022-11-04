@@ -1,11 +1,11 @@
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 
 interface IUsersRepository {
-  findByEmailWithRelations(email: string): Promise<Users | null>;
-  findByEmail(email: string): Promise<Users | null>;
-  create(data: ICreateUserDTO): Promise<Users>;
+  findByEmailWithRelations(email: string): Promise<User | null>;
+  findByEmail(email: string): Promise<User | null>;
+  create(data: ICreateUserDTO): Promise<User>;
 }
 
 export default IUsersRepository;

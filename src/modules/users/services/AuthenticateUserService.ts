@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import { sign } from 'jsonwebtoken';
 
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
@@ -24,7 +24,7 @@ export default class AuthenticateUserService {
     private hashProvider: IHashProvider,
   ) { }
 
-  public async execute({ email, password }: IRequest): Promise<{ user: Users, token: string }> {
+  public async execute({ email, password }: IRequest): Promise<{ user: User, token: string }> {
     const user = await this.usersRepository.findByEmailWithRelations(email);
 
     if (!user) {
