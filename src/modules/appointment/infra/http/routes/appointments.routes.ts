@@ -6,6 +6,8 @@ const appointmentsRoutes = Router();
 
 const appointmentsController = new AppointmentsController();
 
-appointmentsRoutes.post('/getCards/{:id}', appointmentsController.getCards);
+appointmentsRoutes.get('/getCards/{:id}', appointmentsController.getCards);
+appointmentsRoutes.get('/getTable/{:id}', appointmentsController.getTable);
+appointmentsRoutes.get('/getGenreData/{:id}', appointmentsController.getTable);
 
 export default appointmentsRoutes;
