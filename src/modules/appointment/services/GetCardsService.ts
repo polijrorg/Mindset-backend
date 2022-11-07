@@ -17,7 +17,7 @@ interface IResponse {
   ship: number;
   truck: number;
   cities: number;
-  doctorSpeciality: number;
+  doctorSpecialities: number;
   doctors: number;
   patients: number;
   appointments: number;
@@ -32,19 +32,19 @@ export default class GetCardsService {
 
   public async execute({ id }: IRequest): Promise<IResponse> {
     // Transports
-    const car = await this.appointmentssRepository.countTransport('Carro', id);
-    const airplane = await this.appointmentssRepository.countTransport('Avião', id);
-    const train = await this.appointmentssRepository.countTransport('Trem', id);
-    const bus = await this.appointmentssRepository.countTransport('Onibus', id);
-    const ship = await this.appointmentssRepository.countTransport('Barco', id);
-    const truck = await this.appointmentssRepository.countTransport('Caminhão', id);
+    const car = await this.appointmentssRepository.countTransport('car', id);
+    const airplane = await this.appointmentssRepository.countTransport('airplane', id);
+    const train = await this.appointmentssRepository.countTransport('train', id);
+    const bus = await this.appointmentssRepository.countTransport('bus', id);
+    const ship = await this.appointmentssRepository.countTransport('ship', id);
+    const truck = await this.appointmentssRepository.countTransport('truck', id);
 
     // Generation of Carbon Credits
     const sums = await this.appointmentssRepository.sums(id);
 
     // Appointments data
     const cities = await this.appointmentssRepository.countCities(id);
-    const doctorSpeciality = await this.appointmentssRepository.countDoctorSpecialities(id);
+    const doctorSpecialities = await this.appointmentssRepository.countDoctorSpecialities(id);
     const doctors = await this.appointmentssRepository.countDoctors(id);
     const patients = await this.appointmentssRepository.countPatients(id);
     const appointments = await this.appointmentssRepository.countAppointments(id);
@@ -60,7 +60,7 @@ export default class GetCardsService {
       generatedCC: sums.generatedCC || 0,
       CO2: sums.CO2 || 0,
       cities,
-      doctorSpeciality,
+      doctorSpecialities,
       doctors,
       patients,
       appointments,
