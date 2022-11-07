@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 
 import AppError from '@shared/errors/AppError';
 
@@ -25,7 +25,7 @@ export default class CreateUserService {
 
   public async execute({
     email, name, password,
-  }: IRequest): Promise<Users> {
+  }: IRequest): Promise<User> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
     if (userAlreadyExists) throw new AppError('User with same email already exists', 400);
