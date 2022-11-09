@@ -5,17 +5,17 @@ interface ICreateAppointmentDTO {
   transport: string;
   fuel: string;
   state: string;
+  city: string;
+  patientCep: string;
+  establishment: string;
+  establishmentCep: string;
+  reason: string;
+  type: string;
+  patientGenre: string;
   generatedCC: number;
+  CO2: number;
   distance: number;
   companyId: string;
-  CO2: number;
-  location: string;
-  type: string;
-  reason: string;
-  establishment: string;
-  patientCep: string;
-  city: string;
-  patientGenre: string;
 }
 
 export default ICreateAppointmentDTO;
