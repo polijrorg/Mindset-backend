@@ -87,6 +87,59 @@ export const userSchema: OpenAPIV3.PathsObject = {
       },
     },
   },
+  '/forgotPassword/{:email}': {
+    post: {
+      summary: 'Route that request a email of password recovery',
+      description: 'Route that request a email of password recovery',
+      tags: ['user'],
+      parameters: [{
+        in: 'path',
+        name: 'email',
+        description: 'User email',
+      }],
+      responses: {
+        400: {
+          description: 'Email missing',
+        },
+        200: {
+          description: 'Email sent',
+        },
+      },
+    },
+  },
+  '/changePassword': {
+    post: {
+      summary: 'Route that change the user password',
+      description: 'Route that change the user password authenticated with the code in the link of the email sent',
+      tags: ['user'],
+      security: [{ bearerAuth: [] }],
+      requestBody: {
+        content: {
+          'application/json': {
+            schema: {
+              properties: {
+                password: {
+                  type: 'string',
+                  example: 'password',
+                },
+              },
+            },
+          },
+        },
+      },
+      responses: {
+        404: {
+          description: 'Unauthorized',
+        },
+        400: {
+          description: 'Password missing',
+        },
+        200: {
+          description: 'Password changed',
+        },
+      },
+    },
+  },
 };
 
 export default userSchema;
