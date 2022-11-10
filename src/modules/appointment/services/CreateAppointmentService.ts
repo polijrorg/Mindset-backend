@@ -2,6 +2,9 @@ import { Appointment } from '@prisma/client';
 import { inject, injectable } from 'tsyringe';
 import axios from 'axios';
 
+import AppError from '@shared/errors/AppError';
+
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
 interface IRequest {
@@ -30,7 +33,10 @@ interface IAddress {
 export default class CreateAppointmentService {
   constructor(
     @inject('AppointmentsRepository')
-    private appointmentssRepository: IAppointmentsRepository,
+    private appointmentsRepository: IAppointmentsRepository,
+
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
   ) { }
 
   public async execute({
@@ -47,6 +53,10 @@ export default class CreateAppointmentService {
     type,
     transport,
   }: IRequest): Promise<Appointment> {
+    const user = this.usersRepository.findById(companyId);
+
+    if (!user) throw new AppError('Company Id is not valid', 400);
+
     const patientLocationResponse = await axios.get(`https://cdn.apicep.com/file/apicep/${patientCep}.json`);
 
     const establishmentLocationResponse = await axios.get(`https://cdn.apicep.com/file/apicep/${establishmentCep}.json`);
@@ -86,7 +96,7 @@ export default class CreateAppointmentService {
     const CO2 = 0; // Fórmula do cálculo de CO2
     const generatedCC = 0; // Fórmula do cálculo de créditos de carbono
 
-    const appointment = await this.appointmentssRepository.create({
+    const appointment = await this.appointmentsRepository.create({
       patientId,
       companyId,
       doctorId,

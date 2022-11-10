@@ -25,7 +25,7 @@ export interface ITable {
   generatedCC: number;
 }
 
-interface IUsersRepository {
+interface IAppointmentsRepository {
   countTransport(transport: string, companyId: string): Promise<number>;
   sums(companyId: string): Promise<ISums>;
   countGenre(id: string): Promise<IGenre>;
@@ -38,4 +38,4 @@ interface IUsersRepository {
   create(data: ICreateUserDTO): Promise<Appointment>;
 }
 
-export default IUsersRepository;
+export default IAppointmentsRepository;
