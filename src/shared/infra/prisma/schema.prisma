@@ -21,9 +21,9 @@ model Appointment {
   city             String
   patientCep       String
   establishment    String
+  establishmentCep String
   reason           String
   type             String
-  location         String
   patientGenre     String
   generatedCC      Float
   CO2              Float
