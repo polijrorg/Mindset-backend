@@ -11,6 +11,8 @@ import '@shared/container';
 
 import AppError from '@shared/errors/AppError';
 
+import validatorErrorHandler from '@shared/infra/http/middleware/validatorErrorHandler';
+
 import swaggerDocs from '@config/swagger';
 
 import routes from './routes';
@@ -43,6 +45,8 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     message: err.message,
   });
 });
+
+app.use(validatorErrorHandler);
 
 app.listen(process.env.PORT || 3333, () => {
   console.log(`Server started on port ${process.env.PORT || 3333}`);
