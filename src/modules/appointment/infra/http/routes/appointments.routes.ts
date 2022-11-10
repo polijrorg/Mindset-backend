@@ -2,8 +2,6 @@ import ensureAuthenticated from '@shared/infra/http/middleware/ensureAuthenticat
 import { Router } from 'express';
 import { body } from 'express-validator';
 
-import validatorErrorHandler from '@shared/infra/http/middleware/validatorErrorHandler';
-
 import AppointmentsController from '../controller/AppointmentsController';
 
 const appointmentsRoutes = Router();
@@ -29,7 +27,6 @@ appointmentsRoutes.post('/create',
   body('patientGenre').custom(
     (value) => (!(value !== 'Male' && value !== 'Female' && value !== 'Other')),
   ).withMessage('Patient Genre is invalid'),
-  validatorErrorHandler,
   appointmentsController.createAppointment);
 
 export default appointmentsRoutes;
