@@ -53,7 +53,7 @@ export default class CreateAppointmentService {
     type,
     transport,
   }: IRequest): Promise<Appointment> {
-    const user = this.usersRepository.findById(companyId);
+    const user = await this.usersRepository.findById(companyId);
 
     if (!user) throw new AppError('Company Id is not valid', 400);
 
