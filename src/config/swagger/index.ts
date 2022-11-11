@@ -6,10 +6,10 @@ import schemas from './schemas';
 const swagger: OpenAPIV3.Document = {
   openapi: '3.0.0',
   info: {
-    title: 'API do projeto XPTO',
+    title: 'Compensas API',
     description: 'Documentação',
     contact: {
-      email: 'email@polijunior.com.br',
+      email: 'iago.errera@polijunior.com.br',
     },
     version: '1.0.0',
   },
@@ -19,7 +19,7 @@ const swagger: OpenAPIV3.Document = {
       description: 'Local server',
     },
     {
-      url: 'https://sua-url.com/',
+      url: 'https://compensas.polijrinternal.com/',
       description: 'Deployed server',
     },
   ],
