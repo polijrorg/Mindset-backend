@@ -12,7 +12,7 @@ model Appointment {
   establishmentCep String
   reason           String
   type             String
-  patientGenre     String
+  patientSex     String
   generatedCC      Float
   CO2              Float
   distance         Float

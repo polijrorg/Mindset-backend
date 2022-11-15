@@ -18,7 +18,7 @@ interface IRequest {
   establishmentCep: string;
   reason: string;
   type: string;
-  patientGenre: string;
+  patientSex: string;
   companyId: string;
 }
 
@@ -48,7 +48,7 @@ export default class CreateAppointmentService {
     establishment,
     doctorSpeciality,
     fuel,
-    patientGenre,
+    patientSex,
     reason,
     type,
     transport,
@@ -106,7 +106,7 @@ export default class CreateAppointmentService {
       establishment,
       doctorSpeciality,
       fuel,
-      patientGenre,
+      patientSex,
       reason,
       type,
       transport,

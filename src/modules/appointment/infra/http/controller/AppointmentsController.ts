@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import GetCardsService from '@modules/appointment/services/GetCardsService';
 import ListAppointmentTableService from '@modules/appointment/services/ListAppointmentTableService';
-import GetGenreDataService from '@modules/appointment/services/GetGenreDataService';
+import GetSexDataService from '@modules/appointment/services/GetSexDataService';
 import CreateAppointmentService from '@modules/appointment/services/CreateAppointmentService';
 import GetSpecialityDataService from '@modules/appointment/services/GetSpecialityDataService';
 
@@ -28,14 +28,14 @@ export default class AppointmestsController {
     return res.status(200).json(table);
   }
 
-  public async getGenreData(req: Request, res: Response): Promise<Response> {
+  public async getSexData(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
-    const getGenreData = container.resolve(GetGenreDataService);
+    const getSexData = container.resolve(GetSexDataService);
 
-    const genreData = await getGenreData.execute({ id });
+    const sexData = await getSexData.execute({ id });
 
-    return res.status(200).json(genreData);
+    return res.status(200).json(sexData);
   }
 
   public async getSpecialityData(req: Request, res: Response): Promise<Response> {
@@ -61,7 +61,7 @@ export default class AppointmestsController {
       establishmentCep,
       reason,
       type,
-      patientGenre,
+      patientSex,
     } = req.body;
 
     const createAppointment = container.resolve(CreateAppointmentService);
@@ -78,7 +78,7 @@ export default class AppointmestsController {
       establishmentCep,
       reason,
       type,
-      patientGenre,
+      patientSex,
     });
 
     return res.status(201).json(appointment);

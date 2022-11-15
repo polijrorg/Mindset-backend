@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types';
 
-import genreDataComponent from '../schemas/genreData';
+import sexDataComponent from '../schemas/sexData';
 import specialityDataComponent from '../schemas/specialityData';
 import cardComponent from '../schemas/card';
 import appointmentComponent from '../schemas/appointment';
@@ -33,10 +33,10 @@ export const appointmentSchema: OpenAPIV3.PathsObject = {
       },
     },
   },
-  '/appointments/getGenreData/{:id}': {
+  '/appointments/getSexData/{:id}': {
     get: {
-      summary: 'Route that return genre data used on chart in dashboard',
-      description: 'Route that return genre data used on chart in dashboard',
+      summary: 'Route that return sex data used on chart in dashboard',
+      description: 'Route that return sex data used on chart in dashboard',
       tags: ['appointments'],
       parameters: [{
         in: 'path',
@@ -52,7 +52,7 @@ export const appointmentSchema: OpenAPIV3.PathsObject = {
           content: {
             'application/json': {
               schema: {
-                properties: genreDataComponent,
+                properties: sexDataComponent,
               },
             },
           },
@@ -79,6 +79,7 @@ export const appointmentSchema: OpenAPIV3.PathsObject = {
           content: {
             'application/json': {
               schema: {
+                type: 'array',
                 items: {
                   properties: specialityDataComponent,
                 },
@@ -170,7 +171,7 @@ export const appointmentSchema: OpenAPIV3.PathsObject = {
                   type: 'string',
                   example: 'type of your appointment',
                 },
-                patientGenre: {
+                patientSex: {
                   type: 'string',
                   example: 'male',
                 },
