@@ -25,6 +25,11 @@ export interface ITable {
   generatedCC: number;
 }
 
+export interface ISpeciality {
+  speciality: string;
+  number: number;
+}
+
 interface IAppointmentsRepository {
   countTransport(transport: string, companyId: string): Promise<number>;
   sums(companyId: string): Promise<ISums>;
@@ -35,6 +40,7 @@ interface IAppointmentsRepository {
   countDoctorSpecialities(id: string): Promise<number>;
   countAppointments(id: string): Promise<number>;
   listAppointments(id: string): Promise<ITable[]>;
+  listSpecilities(id: string): Promise<ISpeciality[]>;
   create(data: ICreateUserDTO): Promise<Appointment>;
 }
 

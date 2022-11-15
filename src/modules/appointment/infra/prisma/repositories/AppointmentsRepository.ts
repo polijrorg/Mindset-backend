@@ -1,7 +1,9 @@
 import prisma from '@shared/infra/prisma/client';
 import { Prisma, Appointment } from '@prisma/client';
 
-import IAppointmentsRepository, { ISums, IGenre, ITable } from '@modules/appointment/repositories/IAppointmentsRepository';
+import IAppointmentsRepository, {
+  ISums, IGenre, ITable, ISpeciality,
+} from '@modules/appointment/repositories/IAppointmentsRepository';
 import ICreateAppointmentDTO from '@modules/appointment/dtos/ICreateAppointmentDTO';
 
 export default class AppointmentsRepository implements IAppointmentsRepository {
@@ -121,6 +123,26 @@ export default class AppointmentsRepository implements IAppointmentsRepository {
   //     }
   //   }
   // }
+
+  public async listSpecilities(id: string): Promise<ISpeciality[]> {
+    const specilities = await this.ormRepository.groupBy({
+      by: ['doctorSpeciality'],
+      where: { companyId: id },
+      _count: {
+        doctorSpeciality: true,
+      },
+    });
+
+    const specilitiesArray = [] as ISpeciality[];
+    specilities.forEach((speciality) => {
+      specilitiesArray.push({
+        speciality: speciality.doctorSpeciality,
+        number: speciality._count.doctorSpeciality,
+      } as ISpeciality);
+    });
+
+    return specilitiesArray;
+  }
 
   public async create(data: ICreateAppointmentDTO): Promise<Appointment> {
     const appointment = await this.ormRepository.create({ data });
