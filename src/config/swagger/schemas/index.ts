@@ -3,6 +3,7 @@ import appointmentSchema from './appointment';
 import cardSchema from './card';
 import sexDataSchema from './sexData';
 import specialityDataComponent from './specialityData';
+import configsComponent from './configs';
 
 const schema = {
   ...userSchema,
@@ -10,6 +11,7 @@ const schema = {
   ...cardSchema,
   ...sexDataSchema,
   ...specialityDataComponent,
+  ...configsComponent,
 };
 
 export default schema;

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { body, param } from 'express-validator';
 
 import forgotPasswordAuthentication from '@shared/infra/http/middleware/forgotPasswordAuthentication';
+import ensureAuthenticated from '@shared/infra/http/middleware/ensureAuthenticated';
 
 import UsersController from '../controller/UsersController';
 
@@ -24,3 +25,5 @@ usersRoutes.post('/changePassword',
   body('password').not().isEmpty().withMessage('Password missing'),
   usersController.changePassword);
 export default usersRoutes;
+
+usersRoutes.post('/changeConfigs', ensureAuthenticated, usersController.changeConfigs);
