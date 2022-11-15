@@ -11,7 +11,7 @@ const appointmentsController = new AppointmentsController();
 
 appointmentsRoutes.get('/getCards/:id', ensureAuthenticated, appointmentsController.getCards);
 appointmentsRoutes.get('/getTable/:id', ensureAuthenticated, appointmentsController.getTable);
-appointmentsRoutes.get('/getGenreData/:id', ensureAuthenticated, appointmentsController.getGenreData);
+appointmentsRoutes.get('/getSexData/:id', ensureAuthenticated, appointmentsController.getSexData);
 appointmentsRoutes.get('/getSpecialityData/:id', ensureAuthenticated, appointmentsController.getSpecialityData);
 appointmentsRoutes.post('/create',
   body('patientId').not().isEmpty().withMessage('Patient ID is missing'),
@@ -25,10 +25,10 @@ appointmentsRoutes.post('/create',
   body('establishmentCep').not().isEmpty().withMessage('Establishment CEP is missing'),
   body('reason').not().isEmpty().withMessage('Reason is missing'),
   body('type').not().isEmpty().withMessage('Type is missing'),
-  body('patientGenre').not().isEmpty().withMessage('Patient Genre is missing'),
-  body('patientGenre').custom(
-    (value) => (!(value !== 'Male' && value !== 'Female' && value !== 'Other')),
-  ).withMessage('Patient Genre is invalid'),
+  body('patientSex').not().isEmpty().withMessage('Patient Sex is missing'),
+  body('patientSex').custom(
+    (value) => (!(value !== 'Male' && value !== 'Female')),
+  ).withMessage('Patient Sex is invalid'),
   appointmentsController.createAppointment);
 
 export default appointmentsRoutes;

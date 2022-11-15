@@ -56,7 +56,7 @@ const appointmentComponent: OpenAPIV3.ComponentsObject['schemas'] = {
         type: 'string',
         example: 'location',
       },
-      patientGenre: {
+      patientSex: {
         type: 'string',
         example: 'male',
       },

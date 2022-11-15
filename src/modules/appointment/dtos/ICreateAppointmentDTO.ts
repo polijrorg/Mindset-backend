@@ -11,7 +11,7 @@ interface ICreateAppointmentDTO {
   establishmentCep: string;
   reason: string;
   type: string;
-  patientGenre: string;
+  patientSex: string;
   generatedCC: number;
   CO2: number;
   distance: number;

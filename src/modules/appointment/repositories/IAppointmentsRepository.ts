@@ -8,10 +8,9 @@ export interface ISums {
   CO2: number | null;
 }
 
-export interface IGenre {
+export interface ISex {
   male: number;
   female: number;
-  others: number;
 }
 
 export interface ITable {
@@ -33,7 +32,7 @@ export interface ISpeciality {
 interface IAppointmentsRepository {
   countTransport(transport: string, companyId: string): Promise<number>;
   sums(companyId: string): Promise<ISums>;
-  countGenre(id: string): Promise<IGenre>;
+  countSex(id: string): Promise<ISex>;
   countDoctors(id: string): Promise<number>;
   countPatients(id: string): Promise<number>;
   countCities(id: string): Promise<number>;

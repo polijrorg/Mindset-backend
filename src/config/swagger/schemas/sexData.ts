@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 
-const genreDataComponent: OpenAPIV3.ComponentsObject['schemas'] = {
-  genreData: {
+const sexDataComponent: OpenAPIV3.ComponentsObject['schemas'] = {
+  sexData: {
     type: 'object',
     properties: {
       male: {
@@ -12,12 +12,8 @@ const genreDataComponent: OpenAPIV3.ComponentsObject['schemas'] = {
         type: 'number',
         example: '10',
       },
-      others: {
-        type: 'number',
-        example: '10',
-      },
     },
   },
 };
 
-export default genreDataComponent;
+export default sexDataComponent;

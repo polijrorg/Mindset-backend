@@ -2,7 +2,7 @@ import prisma from '@shared/infra/prisma/client';
 import { Prisma, Appointment } from '@prisma/client';
 
 import IAppointmentsRepository, {
-  ISums, IGenre, ITable, ISpeciality,
+  ISums, ISex, ITable, ISpeciality,
 } from '@modules/appointment/repositories/IAppointmentsRepository';
 import ICreateAppointmentDTO from '@modules/appointment/dtos/ICreateAppointmentDTO';
 
@@ -28,15 +28,13 @@ export default class AppointmentsRepository implements IAppointmentsRepository {
     return aggregate._sum;
   }
 
-  public async countGenre(id: string): Promise<IGenre> {
-    const male = await this.ormRepository.count({ where: { companyId: id, patientGenre: 'Male' } });
-    const female = await this.ormRepository.count({ where: { companyId: id, patientGenre: 'Female' } });
-    const others = await this.ormRepository.count({ where: { companyId: id, patientGenre: 'Other' } });
+  public async countSex(id: string): Promise<ISex> {
+    const male = await this.ormRepository.count({ where: { companyId: id, patientSex: 'Male' } });
+    const female = await this.ormRepository.count({ where: { companyId: id, patientSex: 'Female' } });
 
     return {
       male,
       female,
-      others,
     };
   }
 
@@ -115,7 +113,7 @@ export default class AppointmentsRepository implements IAppointmentsRepository {
   //     const until = y !== nowYear ? divisions : nowPart;
 
   //     for (let p = part; p <= until; p += 1) {
-  //       const carbom = await this.ormRepository.aggregate({ 
+  //       const carbom = await this.ormRepository.aggregate({
   //         where: { companyId: id },
   //         _sum: { CO2 },
 
