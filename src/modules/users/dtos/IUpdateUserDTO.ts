@@ -4,7 +4,7 @@ interface IUpdateUserDTO {
   password?: string;
   defaultTransport?: string;
   defaultFuel?: string;
-  defaultResoluteness?: string;
+  enableResoluteness?: boolean;
 }
 
 export default IUpdateUserDTO;
