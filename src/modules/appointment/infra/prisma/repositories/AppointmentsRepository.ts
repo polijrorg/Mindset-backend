@@ -100,27 +100,170 @@ export default class AppointmentsRepository implements IAppointmentsRepository {
     return appointments;
   }
 
-  // public async sumCarbomPerTime(id: string, since: number, divisions: number, part: number): Promise<number[]> {
-  //   const now = new Date();
-  //   const nowYear = now.getFullYear();
-  //   const nowMonth = now.getMonth();
+  public async getSumCarbonPerTime(id: string, year: number): Promise<number[]> {
+    const range = [
+      new Date(year, 0),
+      new Date(year, 1),
+      new Date(year, 2),
+      new Date(year, 3),
+      new Date(year, 4),
+      new Date(year, 5),
+      new Date(year, 6),
+      new Date(year, 7),
+      new Date(year, 8),
+      new Date(year, 9),
+      new Date(year, 10),
+      new Date(year, 11),
+    ];
+    const carbomPerTime: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-  //   let nowPart = 0;
-  //   while (((nowPart + 1) * divisions) < nowMonth) nowPart += 1;
+    carbomPerTime[0] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[1],
+          gte: range[0],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[1] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[2],
+          gte: range[1],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[2] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[3],
+          gte: range[2],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[3] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[4],
+          gte: range[3],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[4] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[5],
+          gte: range[4],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[5] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[6],
+          gte: range[5],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[6] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[7],
+          gte: range[6],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[7] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[8],
+          gte: range[7],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[8] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[9],
+          gte: range[8],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[9] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[10],
+          gte: range[9],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[10] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: range[11],
+          gte: range[10],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
+    carbomPerTime[11] = (await this.ormRepository.aggregate({
+      where: {
+        companyId: id,
+        created_at: {
+          lte: new Date(year + 1, 1),
+          gte: range[11],
+        },
+      },
+      _sum: {
+        CO2: true,
+      },
+    }))._sum.CO2 || 0;
 
-  //   const carbomPerTime: number[] = [];
-  //   for (let y = since; y <= nowYear; y += 1) {
-  //     const until = y !== nowYear ? divisions : nowPart;
-
-  //     for (let p = part; p <= until; p += 1) {
-  //       const carbom = await this.ormRepository.aggregate({
-  //         where: { companyId: id },
-  //         _sum: { CO2 },
-
-  //       })
-  //     }
-  //   }
-  // }
+    return carbomPerTime;
+  }
 
   public async listSpecilities(id: string): Promise<ISpeciality[]> {
     const specilities = await this.ormRepository.groupBy({

@@ -6,6 +6,7 @@ import ListAppointmentTableService from '@modules/appointment/services/ListAppoi
 import GetSexDataService from '@modules/appointment/services/GetSexDataService';
 import CreateAppointmentService from '@modules/appointment/services/CreateAppointmentService';
 import GetSpecialityDataService from '@modules/appointment/services/GetSpecialityDataService';
+import GetCarbonPerTimeDataService from '@modules/appointment/services/GetCarbonPerTimeDataService';
 
 export default class AppointmestsController {
   public async getCards(req: Request, res: Response): Promise<Response> {
@@ -82,5 +83,17 @@ export default class AppointmestsController {
     });
 
     return res.status(201).json(appointment);
+  }
+
+  public async getCarbonPerTimeData(req: Request, res: Response): Promise<Response> {
+    const { year } = req.params;
+    const { id } = req.user;
+    let parsedYear = 0;
+    if (year) parsedYear = parseInt(year, 10);
+
+    const getCarbonPerTimeData = container.resolve(GetCarbonPerTimeDataService);
+    const carbonPerTime = await getCarbonPerTimeData.execute({ id, year: parsedYear });
+
+    return res.json(carbonPerTime);
   }
 }

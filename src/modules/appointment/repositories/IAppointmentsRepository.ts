@@ -40,6 +40,7 @@ interface IAppointmentsRepository {
   countAppointments(id: string): Promise<number>;
   listAppointments(id: string): Promise<ITable[]>;
   listSpecilities(id: string): Promise<ISpeciality[]>;
+  getSumCarbonPerTime(id: string, year: number): Promise<number[]>
   create(data: ICreateUserDTO): Promise<Appointment>;
 }
 
