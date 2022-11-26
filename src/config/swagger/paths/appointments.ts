@@ -117,6 +117,36 @@ export const appointmentSchema: OpenAPIV3.PathsObject = {
       },
     },
   },
+  '/appointments/getCarbonPerTimeData/{:year}': {
+    get: {
+      summary: 'Route that return carbon emission avoided over a year in dashboard',
+      description: 'Route that return carbon emission avoided over a year in dashboard',
+      tags: ['appointments'],
+      parameters: [{
+        in: 'path',
+        name: 'year',
+        description: 'Year of the query',
+      }],
+      responses: {
+        401: {
+          description: 'Unauthorized',
+        },
+        200: {
+          description: 'Array wiht 12 values, about each month of the year',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'array',
+                items: {
+                  type: 'integer',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
   '/appointments/create': {
     post: {
       summary: 'Route that create a appointment',

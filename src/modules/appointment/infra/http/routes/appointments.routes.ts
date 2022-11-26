@@ -30,5 +30,6 @@ appointmentsRoutes.post('/create',
     (value) => (!(value !== 'Male' && value !== 'Female')),
   ).withMessage('Patient Sex is invalid'),
   appointmentsController.createAppointment);
+appointmentsRoutes.get('/getCarbonPerTimeData/:year', ensureAuthenticated, appointmentsController.getCarbonPerTimeData);
 
 export default appointmentsRoutes;
