@@ -29,6 +29,10 @@ interface IAddress {
   address: string;
 }
 
+interface IPair {
+  [key: string]: number
+}
+
 @injectable()
 export default class CreateAppointmentService {
   constructor(
@@ -93,7 +97,34 @@ export default class CreateAppointmentService {
 
     const distance: number = distanceArrayResponse.data.rows[0].elements[0].distance.value;
 
-    const CO2 = 0; // Fórmula do cálculo de CO2
+    let CO2 = 0; // Fórmula do cálculo de CO2
+
+    if (transport === 'car') {
+      const emissionFactor: IPair = {
+        gasoline: 2.212,
+        diesel: 2.603,
+        gnv: 1.999,
+      };
+      const perc: IPair = {
+        gasoline: 0.27,
+        diesel: 0.112,
+        gnv: 0,
+      };
+      CO2 = (0.06329 * distance * (1 - perc[fuel])) * (emissionFactor[fuel] / 1000);
+    } else if (transport === 'bus') {
+      const emissionFactor = originCity !== destinyCity ? 0.028 : 0.126;
+      CO2 = distance * emissionFactor * ((1 - 0.112) / 1000);
+    } else if (transport === 'subway' || transport === 'train') {
+      const emissionFactor = transport === 'subway' ? 11.5 : 16.75;
+      CO2 = distance * (emissionFactor / 1000);
+    } else if (transport === 'airplane') {
+      const emissionFatorML = distance <= 3700 ? 0.0744444 : 0.0936204;
+      const emissionFactor = distance <= 500 ? 0.1191759 : emissionFatorML;
+      CO2 = distance * emissionFactor * (1.08 / 1000);
+    } else if (transport === 'ship') {
+      CO2 = distance * (0.019 / 1000);
+    }
+
     const generatedCC = 0; // Fórmula do cálculo de créditos de carbono
 
     const appointment = await this.appointmentsRepository.create({
