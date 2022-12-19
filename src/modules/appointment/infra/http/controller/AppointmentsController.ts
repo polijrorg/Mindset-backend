@@ -49,6 +49,18 @@ export default class AppointmestsController {
     return res.status(200).json(specialityData);
   }
 
+  public async getCarbonPerTimeData(req: Request, res: Response): Promise<Response> {
+    const { year } = req.params;
+    const { id } = req.user;
+    let parsedYear = 0;
+    if (year) parsedYear = parseInt(year, 10);
+
+    const getCarbonPerTimeData = container.resolve(GetCarbonPerTimeDataService);
+    const carbonPerTime = await getCarbonPerTimeData.execute({ id, year: parsedYear });
+
+    return res.json(carbonPerTime);
+  }
+
   public async createAppointment(req: Request, res: Response): Promise<Response> {
     const {
       patientId,
@@ -58,8 +70,7 @@ export default class AppointmestsController {
       transport,
       fuel,
       patientCep,
-      establishment,
-      establishmentCep,
+      establishmentCode,
       reason,
       type,
       patientSex,
@@ -75,25 +86,12 @@ export default class AppointmestsController {
       transport,
       fuel,
       patientCep,
-      establishment,
-      establishmentCep,
+      establishmentCode,
       reason,
       type,
       patientSex,
     });
 
     return res.status(201).json(appointment);
-  }
-
-  public async getCarbonPerTimeData(req: Request, res: Response): Promise<Response> {
-    const { year } = req.params;
-    const { id } = req.user;
-    let parsedYear = 0;
-    if (year) parsedYear = parseInt(year, 10);
-
-    const getCarbonPerTimeData = container.resolve(GetCarbonPerTimeDataService);
-    const carbonPerTime = await getCarbonPerTimeData.execute({ id, year: parsedYear });
-
-    return res.json(carbonPerTime);
   }
 }

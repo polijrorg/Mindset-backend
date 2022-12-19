@@ -1,0 +1,18 @@
+model Establishment {
+  id           String        @id @default(uuid())
+  cnesCode     Int           @unique
+  fantasyName  String
+  cep          Int
+  address      String
+  latitude     Int
+  longitude     Int
+  appointments Appointment[]
+
+  @@map("establishment")
+}
+
+model Appointment {
+  id              String        @id
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id])
+}

@@ -6,6 +6,7 @@ import AppError from '@shared/errors/AppError';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
+import IEstablishmentsRepository from '@modules/establishment/repositories/IEstablishmentsRepository';
 
 interface IRequest {
   patientId: string;
@@ -14,8 +15,7 @@ interface IRequest {
   transport: string;
   fuel: string;
   patientCep: string;
-  establishment: string;
-  establishmentCep: string;
+  establishmentCode: number;
   reason: string;
   type: string;
   patientSex: string;
@@ -41,6 +41,9 @@ export default class CreateAppointmentService {
 
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('EstablishmentRepository')
+    private establishmentRepository: IEstablishmentsRepository
   ) { }
 
   public async execute({
@@ -48,8 +51,7 @@ export default class CreateAppointmentService {
     patientId,
     doctorId,
     patientCep,
-    establishmentCep,
-    establishment,
+    establishmentCode,
     doctorSpeciality,
     fuel,
     patientSex,
@@ -58,12 +60,14 @@ export default class CreateAppointmentService {
     transport,
   }: IRequest): Promise<Appointment> {
     const user = await this.usersRepository.findById(companyId);
+    const establishment = await this.establishmentRepository.findByCode(establishmentCode);
 
     if (!user) throw new AppError('Company Id is not valid', 400);
+    if (!establishment) throw new AppError('Establishment code is not valid', 400);
 
     const patientLocationResponse = await axios.get(`https://cdn.apicep.com/file/apicep/${patientCep}.json`);
 
-    const establishmentLocationResponse = await axios.get(`https://cdn.apicep.com/file/apicep/${establishmentCep}.json`);
+    const establishmentLocationResponse = await axios.get(`https://cdn.apicep.com/file/apicep/${establishment.cep}.json`);
 
     const {
       city: originCity,
@@ -200,7 +204,7 @@ export default class CreateAppointmentService {
       distance,
       CO2: CO2e,
       generatedCC,
-      establishment,
+      establishmentId: establishment.id,
       doctorSpeciality,
       fuel,
       patientSex,
@@ -208,7 +212,6 @@ export default class CreateAppointmentService {
       type,
       transport,
       patientCep,
-      establishmentCep,
       city: originCity,
       state: originState,
     });
