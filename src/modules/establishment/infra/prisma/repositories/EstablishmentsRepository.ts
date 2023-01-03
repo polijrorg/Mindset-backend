@@ -11,12 +11,6 @@ export default class EstablishmentsRepository implements IEstablishmentsReposito
     this.ormRepository = prisma.establishment;
   }
 
-  async create(data: ICreateEstablishmentDTO): Promise<Establishment> {
-    const establishment = await this.ormRepository.create({ data });
-
-    return establishment;
-  }
-
   async findById(id: string): Promise<Establishment | null> {
     const establishment = await this.ormRepository.findUnique({
       where: {
@@ -28,11 +22,28 @@ export default class EstablishmentsRepository implements IEstablishmentsReposito
   }
 
   async findByCode(code: number): Promise<Establishment | null> {
-    const establishment = await this.ormRepository.findUnique({
+    const establishment = await this.ormRepository.findFirst({
       where: {
         cnesCode: code,
       },
     });
+
+    return establishment;
+  }
+
+  async update(data: ICreateEstablishmentDTO): Promise<void> {
+    await this.ormRepository.update({
+      where: { cnesCode: data.cnesCode },
+      data,
+    });
+  }
+
+  async deleteAll(): Promise<void> {
+    await this.ormRepository.deleteMany();
+  }
+
+  async create(data: ICreateEstablishmentDTO): Promise<Establishment> {
+    const establishment = await this.ormRepository.create({ data });
 
     return establishment;
   }

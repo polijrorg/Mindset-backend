@@ -1,8 +1,14 @@
-// import { Router } from 'express';
-// import { body, param } from 'express-validator';
+import { Router } from 'express';
+import multer from 'multer';
 
-// import EstablishmentsController from '../controller/EstablishmentsController';
+import multerConfig from '@config/multerConfig';
 
-// const establishmentsRoutes = Router();
+import EstablishmentsController from '../controller/EstablishmentsController';
 
-// const establishmentsController = new EstablishmentsController();
+const establishmentsRoutes = Router();
+
+const establishmentsController = new EstablishmentsController();
+
+establishmentsRoutes.post('/uploadCNESTable', multer(multerConfig).single('file'), establishmentsController.upload);
+
+export default establishmentsRoutes;

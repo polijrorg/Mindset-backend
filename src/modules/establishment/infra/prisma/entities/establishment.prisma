@@ -4,10 +4,13 @@ model Establishment {
   fantasyName  String
   cep          Int
   address      String
-  latitude     Int
-  longitude     Int
+  district     String
+  place        String
+  latitude     Int?
+  longitude    Int?
   appointments Appointment[]
 
+  @@index([id, cnesCode])
   @@map("establishment")
 }
 
