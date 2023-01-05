@@ -21,6 +21,7 @@ interface IResponse {
   doctors: number;
   patients: number;
   appointments: number;
+  trees: number;
 }
 
 @injectable()
@@ -64,6 +65,7 @@ export default class GetCardsService {
       doctors,
       patients,
       appointments,
+      trees: (sums.CO2 || 0) * 7,
     };
   }
 }

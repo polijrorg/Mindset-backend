@@ -5,8 +5,8 @@ import axios from 'axios';
 import AppError from '@shared/errors/AppError';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 import IEstablishmentsRepository from '@modules/establishment/repositories/IEstablishmentsRepository';
+import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
 interface IRequest {
   patientId: string;
@@ -43,7 +43,7 @@ export default class CreateAppointmentService {
     private usersRepository: IUsersRepository,
 
     @inject('EstablishmentRepository')
-    private establishmentRepository: IEstablishmentsRepository
+    private establishmentRepository: IEstablishmentsRepository,
   ) { }
 
   public async execute({
@@ -105,7 +105,7 @@ export default class CreateAppointmentService {
       CO2: 1,
       CH4: 28,
       N2O: 265,
-    }
+    };
 
     let CO2 = 0;
     let CH4 = 0;
@@ -134,7 +134,7 @@ export default class CreateAppointmentService {
       CO2 = (0.06329 * distance * (1 - perc[fuel])) * (emissionFactorCO2[fuel] / 1000);
       if (fuel !== 'gnv') {
         CH4 = 0.06329 * distance * (emissionFactorCH4[fuel] / 1000);
-        N2O = 0.06329 * distance * (emissionFactorN2O[fuel] / 1000);  
+        N2O = 0.06329 * distance * (emissionFactorN2O[fuel] / 1000);
       }
     } else if (transport === 'bus') {
       const emissionFactorCO2 = originCity !== destinyCity ? 0.028 : 0.126;
@@ -142,19 +142,18 @@ export default class CreateAppointmentService {
 
       const emissionFactorCH4DieselOil = originCity !== destinyCity ? 0.000001 : 0.000007;
       const emissionFactorCH4BioDiesel = originCity !== destinyCity ? 0.000004 : 0.00002;
-      
+
       const emissionFactorN2ODieselOil = originCity !== destinyCity ? 0.000001 : 0.000007;
       const emissionFactorN2OBioDiesel = originCity !== destinyCity ? 0.00000021 : 0.000001;
-      
+
       const emissionDieselOilCH4 = distance * emissionFactorCH4DieselOil * ((1 - 0.112) / 1000);
       const emissionBioDieselCH4 = distance * emissionFactorCH4BioDiesel * ((1 - 0.112) / 1000);
-      
+
       const emissionDieselOilN2O = distance * emissionFactorN2ODieselOil * ((1 - 0.112) / 1000);
       const emissionBioDieselN2O = distance * emissionFactorN2OBioDiesel * ((1 - 0.112) / 1000);
-      
+
       CH4 = emissionBioDieselCH4 + emissionDieselOilCH4;
       N2O = emissionBioDieselN2O + emissionDieselOilN2O;
-
     } else if (transport === 'subway' || transport === 'train') {
       const emissionFactor = transport === 'subway' ? 11.5 : 16.75;
       CO2 = distance * (emissionFactor / 1000);
@@ -162,28 +161,28 @@ export default class CreateAppointmentService {
       const FE_short = {
         CO2: 0.1191759,
         CH4: 0.0000037,
-        N2O: 0.0000038
+        N2O: 0.0000038,
       };
       const FE_average = {
         CO2: 0.0744444,
         CH4: 0.0000004,
-        N2O: 0.0000024
+        N2O: 0.0000024,
       };
       const FE_long = {
         CO2: 0.0936204,
         CH4: 0.0000004,
-        N2O: 0.0000030
+        N2O: 0.0000030,
       };
 
       const emissionFatorMLCO2 = distance <= 3700 ? FE_average.CO2 : FE_long.CO2;
       const emissionFactorCO2 = distance <= 500 ? FE_short.CO2 : emissionFatorMLCO2;
-      
+
       const emissionFatorMLCH4 = distance <= 3700 ? FE_average.CH4 : FE_long.CH4;
       const emissionFactorCH4 = distance <= 500 ? FE_short.CH4 : emissionFatorMLCH4;
-      
+
       const emissionFatorMLN2O = distance <= 3700 ? FE_average.N2O : FE_long.N2O;
       const emissionFactorN2O = distance <= 500 ? FE_short.N2O : emissionFatorMLN2O;
-      
+
       CO2 = distance * emissionFactorCO2 * (1.08 / 1000);
       CH4 = distance * emissionFactorCH4 * (1.08 / 1000);
       N2O = distance * emissionFactorN2O * (1.08 / 1000);
@@ -195,7 +194,7 @@ export default class CreateAppointmentService {
 
     CO2e = CO2 * gwp.CO2 + CH4 * gwp.CH4 + N2O * gwp.N2O;
 
-    const generatedCC = 0; // Fórmula do cálculo de créditos de carbono
+    const generatedCC = CO2e;
 
     const appointment = await this.appointmentsRepository.create({
       patientId,
