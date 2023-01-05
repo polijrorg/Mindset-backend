@@ -56,6 +56,10 @@ const cardComponent: OpenAPIV3.ComponentsObject['schemas'] = {
         type: 'number',
         example: '100',
       },
+      tree: {
+        type: 'number',
+        example: '100',
+      },
     },
   },
 };
