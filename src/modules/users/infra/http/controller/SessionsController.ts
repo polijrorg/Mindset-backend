@@ -14,6 +14,8 @@ export default class SessionsController {
 
     const { user, token } = await authenticateUser.execute({ email, password });
 
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     return res.json({ user, token });
   }
 }
