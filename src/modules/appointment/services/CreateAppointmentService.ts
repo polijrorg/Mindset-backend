@@ -42,7 +42,7 @@ export default class CreateAppointmentService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
-    @inject('EstablishmentRepository')
+    @inject('EstablishmentsRepository')
     private establishmentRepository: IEstablishmentsRepository,
   ) { }
 

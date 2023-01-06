@@ -16,4 +16,4 @@ import EstablishmentsRepository from '@modules/establishment/infra/prisma/reposi
 
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 container.registerSingleton<IAppointmentsRepository>('AppointmentsRepository', AppointmentsRepository);
-container.registerSingleton<IEstablishmentsRepository>('EstablihsmentsRepository', EstablishmentsRepository);
+container.registerSingleton<IEstablishmentsRepository>('EstablishmentsRepository', EstablishmentsRepository);
