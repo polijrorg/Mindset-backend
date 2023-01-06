@@ -1,0 +1,21 @@
+model Establishment {
+  id           String        @id @default(uuid())
+  cnesCode     Int           @unique
+  fantasyName  String
+  cep          Int
+  address      String
+  district     String
+  place        String
+  latitude     Int?
+  longitude    Int?
+  appointments Appointment[]
+
+  @@index([id, cnesCode])
+  @@map("establishment")
+}
+
+model Appointment {
+  id              String        @id
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id])
+}

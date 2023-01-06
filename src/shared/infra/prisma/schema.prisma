@@ -9,9 +9,11 @@ generator client {
 }
 
 model Appointment {
-  id               String   @id @default(uuid())
+  id               String        @id @default(uuid())
   companyId        String
-  company          User     @relation(fields: [companyId], references: [id])
+  company          User          @relation(fields: [companyId], references: [id])
+  establishmentId  String
+  establishment    Establishment @relation(fields: [establishmentId], references: [id])
   patientId        String
   doctorId         String
   doctorSpeciality String
@@ -20,15 +22,13 @@ model Appointment {
   state            String
   city             String
   patientCep       String
-  establishment    String
-  establishmentCep String
   reason           String
   type             String
-  patientSex     String
+  patientSex       String
   generatedCC      Float
   CO2              Float
   distance         Float
-  created_at       DateTime @default(now())
+  created_at       DateTime      @default(now())
 
   @@map("appointment")
 }
@@ -45,4 +45,18 @@ model User {
   created_at         DateTime      @default(now())
 
   @@map("user")
+}
+
+model Establishment {
+  id           String        @id @default(uuid())
+  cnesCode     Int           @unique
+  fantasyName  String
+  cep          Int
+  address      String
+  latitude     Int?
+  longitude    Int?
+  appointments Appointment[]
+
+  @@index([id, cnesCode])
+  @@map("establishment")
 }
