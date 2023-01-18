@@ -3,6 +3,8 @@ import { body } from 'express-validator';
 
 import ensureAuthenticated from '@shared/infra/http/middleware/ensureAuthenticated';
 
+import multerConfigAppointments from '@config/multerConfigAppointments';
+import multer from 'multer';
 import AppointmentsController from '../controller/AppointmentsController';
 
 const appointmentsRoutes = Router();
@@ -31,5 +33,5 @@ appointmentsRoutes.post('/create',
   ).withMessage('Patient Sex is invalid'),
   appointmentsController.createAppointment);
 appointmentsRoutes.get('/getCarbonPerTimeData/:year', ensureAuthenticated, appointmentsController.getCarbonPerTimeData);
-
+appointmentsRoutes.post('/uploadAppointments', multer(multerConfigAppointments).single('file'), appointmentsController.uploadAppointmentsTable);
 export default appointmentsRoutes;

@@ -12,8 +12,8 @@ model Appointment {
   id               String        @id @default(uuid())
   companyId        String
   company          User          @relation(fields: [companyId], references: [id])
-  establishmentId  String
-  establishment    Establishment @relation(fields: [establishmentId], references: [id])
+  establishmentId  Int
+  establishment    Establishment @relation(fields: [establishmentId], references: [cnesCode])
   patientId        String
   doctorId         String
   doctorSpeciality String

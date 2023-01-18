@@ -8,7 +8,8 @@
   "scripts": {
     "lint": "eslint src --ext ts,tsx",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files"
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "docs": "npx insomnia-documenter --output docs"
   },
   "prisma": {
     "schema": "src/shared/infra/prisma/schema.prisma"

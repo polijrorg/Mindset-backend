@@ -65,9 +65,11 @@ export default class CreateAppointmentService {
     if (!user) throw new AppError('Company Id is not valid', 400);
     if (!establishment) throw new AppError('Establishment code is not valid', 400);
 
+    const establishmentCep = `${establishment.cep.toString().slice(0, 5)}-${establishment.cep.toString().slice(5)}`;
+
     const patientLocationResponse = await axios.get(`https://cdn.apicep.com/file/apicep/${patientCep}.json`);
 
-    const establishmentLocationResponse = await axios.get(`https://cdn.apicep.com/file/apicep/${establishment.cep}.json`);
+    const establishmentLocationResponse = await axios.get(`https://cdn.apicep.com/file/apicep/${establishmentCep}.json`);
 
     const {
       city: originCity,
@@ -203,7 +205,7 @@ export default class CreateAppointmentService {
       distance,
       CO2: CO2e,
       generatedCC,
-      establishmentId: establishment.id,
+      establishmentId: establishment.cnesCode,
       doctorSpeciality,
       fuel,
       patientSex,

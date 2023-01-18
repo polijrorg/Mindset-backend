@@ -7,6 +7,8 @@ import GetSexDataService from '@modules/appointment/services/GetSexDataService';
 import CreateAppointmentService from '@modules/appointment/services/CreateAppointmentService';
 import GetSpecialityDataService from '@modules/appointment/services/GetSpecialityDataService';
 import GetCarbonPerTimeDataService from '@modules/appointment/services/GetCarbonPerTimeDataService';
+import UploadAppoimentsTableService from '@modules/appointment/services/UploadAppoimentsTableService';
+import AppError from '@shared/errors/AppError';
 
 export default class AppointmestsController {
   public async getCards(req: Request, res: Response): Promise<Response> {
@@ -93,5 +95,17 @@ export default class AppointmestsController {
     });
 
     return res.status(201).json(appointment);
+  }
+
+  public async uploadAppointmentsTable(req:Request, res:Response):Promise<Response> {
+    const file = req?.file;
+    if (!file) {
+      throw new AppError('file not found', 400);
+    }
+
+    const uploadTable = container.resolve(UploadAppoimentsTableService);
+    await uploadTable.execute(file.filename);
+
+    return res.status(201).send('Upload Completed');
   }
 }

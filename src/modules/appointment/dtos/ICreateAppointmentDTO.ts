@@ -7,7 +7,7 @@ interface ICreateAppointmentDTO {
   state: string;
   city: string;
   patientCep: string;
-  establishmentId: string;
+  establishmentId: number;
   reason: string;
   type: string;
   patientSex: string;
