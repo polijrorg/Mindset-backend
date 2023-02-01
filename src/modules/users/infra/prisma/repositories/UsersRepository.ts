@@ -47,4 +47,13 @@ export default class UsersRepository implements IUsersRepository {
 
     return user;
   }
+
+  public async findNearest(patientCep: string): Promise<number> {
+    const doctorSpecialityArray = await this.ormRepository.groupBy({
+      where: { companyId: id },
+      by: ['doctorSpeciality'],
+    });
+
+    return doctorSpecialityArray.length;
+  }
 }

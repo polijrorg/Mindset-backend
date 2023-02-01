@@ -1,3 +1,6 @@
+import FindRandomEstablishmentService from '@modules/establishment/services/FindRandomEstablishmentService';
+import { container } from 'tsyringe';
+
 interface IRequest {
   patientId: string;
   doctorId: string;
@@ -11,22 +14,26 @@ interface IRequest {
   patientSex: string;
   companyId: string;
 }
-const makeAppointment = (record: string[]): IRequest => {
+
+const makeAppointment = async (record: string[]): Promise<IRequest> => {
+  const findRandomEstablishment = await container.resolve(FindRandomEstablishmentService);
+
+  const establishmentCnesCode = await findRandomEstablishment.execute();
   const data = {
 
     patientId: record[0],
-    companyId: record[14],
-    doctorId: record[5],
-    doctorSpeciality: record[6],
-    establishmentCode: parseInt(record[9], 10),
-    fuel: record[13],
+    companyId: record[13],
+    doctorId: record[4],
+    doctorSpeciality: record[5],
+    establishmentCode: 0,
+    fuel: record[12],
     patientCep: record[1],
-    patientSex: record[2],
-    reason: record[7],
-    transport: record[12],
-    type: record[8],
+    patientSex: 'male',
+    reason: record[6],
+    transport: record[11],
+    type: record[7],
   } as IRequest;
-
+  data.establishmentCode = establishmentCnesCode;
   return data;
 };
 

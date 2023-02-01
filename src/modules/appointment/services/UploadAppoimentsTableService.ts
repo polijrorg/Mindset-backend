@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import { container, inject, injectable } from 'tsyringe';
 import { parse } from 'csv-parse';
 import fs from 'fs';
@@ -21,16 +22,16 @@ export default class UploadApointmentsTableService {
     });
 
     parser.on('readable', async () => {
-      let record = parser.read();
-      record = parser.read();
-
+      let record = await parser.read();
+      record = await parser.read();
+      record = await parser.read();
+      record = await parser.read();
       const createAppointment = container.resolve(CreateAppointmentService);
 
       while (record) {
-        const data = makeAppointment(record);
+        const data = await makeAppointment(record);
 
         try {
-          // eslint-disable-next-line no-await-in-loop
           await createAppointment.execute(data);
         } catch (e) { console.log((e as Error).message); }
 

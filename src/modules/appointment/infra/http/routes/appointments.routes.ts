@@ -34,4 +34,6 @@ appointmentsRoutes.post('/create',
   appointmentsController.createAppointment);
 appointmentsRoutes.get('/getCarbonPerTimeData/:year', ensureAuthenticated, appointmentsController.getCarbonPerTimeData);
 appointmentsRoutes.post('/uploadAppointments', multer(multerConfigAppointments).single('file'), appointmentsController.uploadAppointmentsTable);
+appointmentsRoutes.post('/createNearest', appointmentsController.createAtNearestpublic);
+
 export default appointmentsRoutes;

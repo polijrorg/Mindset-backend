@@ -9,6 +9,7 @@ import GetSpecialityDataService from '@modules/appointment/services/GetSpecialit
 import GetCarbonPerTimeDataService from '@modules/appointment/services/GetCarbonPerTimeDataService';
 import UploadAppoimentsTableService from '@modules/appointment/services/UploadAppoimentsTableService';
 import AppError from '@shared/errors/AppError';
+import FindNearestEstablishmentService from '@modules/establishment/services/FindNearestEstablishmentService';
 
 export default class AppointmestsController {
   public async getCards(req: Request, res: Response): Promise<Response> {
@@ -107,5 +108,42 @@ export default class AppointmestsController {
     await uploadTable.execute(file.filename);
 
     return res.status(201).send('Upload Completed');
+  }
+
+  public async createAtNearestpublic(req: Request, res: Response): Promise<Response> {
+    const {
+      patientId,
+      doctorId,
+      companyId,
+      doctorSpeciality,
+      transport,
+      fuel,
+      patientCep,
+      reason,
+      type,
+      patientSex,
+    } = req.body;
+
+    const findNearestEstablishment = await container.resolve(FindNearestEstablishmentService);
+
+    const establishmentNear = await findNearestEstablishment.execute(patientCep);
+    const establishmentCode = establishmentNear.cnesCode;
+    const createAppointment = await container.resolve(CreateAppointmentService);
+
+    const appointment = await createAppointment.execute({
+      patientId,
+      doctorId,
+      companyId,
+      doctorSpeciality,
+      transport,
+      fuel,
+      patientCep,
+      establishmentCode,
+      reason,
+      type,
+      patientSex,
+    });
+
+    return res.status(201).json(appointment);
   }
 }

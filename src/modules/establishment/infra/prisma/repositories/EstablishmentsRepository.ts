@@ -47,4 +47,25 @@ export default class EstablishmentsRepository implements IEstablishmentsReposito
 
     return establishment;
   }
+
+  public async findNearest(lat:number, lng:number): Promise<Establishment[]|null > {
+    const nearestEstablishment = await this.ormRepository.findMany({
+      where: {
+        AND: {
+          latitude: { lte: (Math.trunc((lat) + 1)), gte: (Math.trunc((lat) - 1)) },
+          longitude: { lte: (Math.trunc((lng) + 1)), gte: (Math.trunc((lng) - 1)) },
+        },
+      },
+    });
+
+    return nearestEstablishment;
+  }
+
+  public async findRandom(): Promise<Establishment[] | null> {
+    const randomEstablishment = await this.ormRepository.findMany({
+      take: 1000,
+    });
+
+    return randomEstablishment;
+  }
 }

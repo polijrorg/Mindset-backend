@@ -8,7 +8,7 @@ import UsersRepository from '@modules/users/infra/prisma/repositories/UsersRepos
 
 // Appointments
 import IAppointmentsRepository from '@modules/appointment/repositories/IAppointmentsRepository';
-import AppointmentsRepository from '@modules/appointment/infra/prisma/repositories/AppointmentsRepository';
+import AppointmentsRepository from '@modules/appointment/infra/prisma/repositories/AppointmentsRepository copy';
 
 // Establishment
 import IEstablishmentsRepository from '@modules/establishment/repositories/IEstablishmentsRepository';
