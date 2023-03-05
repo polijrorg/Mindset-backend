@@ -27,12 +27,11 @@ export default class CreateUserService {
     //   code *= 10;
     // }
     // Para testes
-    const code = 111111;
+    const code = 121111;
 
     // if (userAlreadyExists) throw new AppError('User with same email already exists', 400);
 
     const user = this.usersRepository.create({ phone, code });
-    console.log(user);
 
     return user;
   }
