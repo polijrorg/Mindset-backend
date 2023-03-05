@@ -16,7 +16,7 @@ export default class UserController {
       phone,
     });
 
-    return res.status(201).json(user);
+    return res.status(201).json(user.phone);
   }
 
   public async verifyCode(req: Request, res: Response): Promise<Response> {
@@ -26,10 +26,10 @@ export default class UserController {
 
     const createUser = container.resolve(VerifyUserService);
 
-    const user = await createUser.execute({
+    await createUser.execute({
       phone, code,
     });
 
-    return res.status(201).json(user);
+    return res.status(201).json('OK');
   }
 }

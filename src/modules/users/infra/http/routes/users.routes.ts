@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { body } from 'express-validator';
 
 // import forgotPasswordAuthentication from '@shared/infra/http/middleware/forgotPasswordAuthentication';
 // import ensureAuthenticated from '@shared/infra/http/middleware/ensureAuthenticated';

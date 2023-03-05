@@ -25,6 +25,7 @@ export default class CreateUserService {
 
     if (!user) throw new AppError('User not found', 400);
     if (user.code !== code) throw new AppError('Wrong Code', 400);
+    console.log(user);
 
     return user;
   }
