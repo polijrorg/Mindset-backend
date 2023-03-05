@@ -1,10 +1,8 @@
 interface IUpdateUserDTO {
-  name?: string;
-  email?: string;
-  password?: string;
-  defaultTransport?: string;
-  defaultFuel?: string;
-  enableResoluteness?: boolean;
+  name: string;
+  avatar:string;
+  phone:string;
+  code:number;
 }
 
 export default IUpdateUserDTO;

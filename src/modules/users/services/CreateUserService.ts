@@ -2,15 +2,14 @@ import { inject, injectable } from 'tsyringe';
 
 import { User } from '@prisma/client';
 
-import AppError from '@shared/errors/AppError';
+// import AppError from '@shared/errors/AppError';
 
-import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
+import AppError from '@shared/errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
-  name: string;
-  email: string;
-  password: string;
+
+  phone:string;
 }
 
 @injectable()
@@ -19,24 +18,18 @@ export default class CreateUserService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
-    @inject('HashProvider')
-    private hashProvider: IHashProvider,
   ) { }
 
-  public async execute({
-    email, name, password,
-  }: IRequest): Promise<User> {
-    const userAlreadyExists = await this.usersRepository.findByEmail(email);
+  public async execute({ phone }: IRequest): Promise<User> {
+    if (phone === '') throw new AppError('Phone is empty', 400);
+    let code = Math.floor(Math.random() * 999999);
+    while (code < 100000) {
+      code *= 10;
+    }
 
-    if (userAlreadyExists) throw new AppError('User with same email already exists', 400);
+    // if (userAlreadyExists) throw new AppError('User with same email already exists', 400);
 
-    const hashedPassword = await this.hashProvider.generateHash(password);
-
-    const user = this.usersRepository.create({
-      name,
-      email: email.toLowerCase(),
-      password: hashedPassword,
-    });
+    const user = this.usersRepository.create({ phone, code });
 
     return user;
   }

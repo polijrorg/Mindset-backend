@@ -2,66 +2,34 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
-import ForgotPasswordEmailService from '@modules/users/services/ForgotPasswordEmailService';
-import ChangePasswordService from '@modules/users/services/ChangePasswordService';
-import ChangeConfigsService from '@modules/users/services/ChangeConfigsService';
+import VerifyUserService from '@modules/users/services/VerifyUserService';
 
 export default class UserController {
   public async create(req: Request, res: Response): Promise<Response> {
     const {
-      name,
-      email,
-      password,
+      phone,
     } = req.body;
 
     const createUser = container.resolve(CreateUserService);
 
     const user = await createUser.execute({
-      name,
-      email,
-      password,
+      phone,
     });
-
-    user.password = '###';
 
     return res.status(201).json(user);
   }
 
-  public async forgotPassword(req: Request, res: Response): Promise<Response> {
-    const { email } = req.params;
+  public async verifyCode(req: Request, res: Response): Promise<Response> {
+    const {
+      phone, code,
+    } = req.body;
 
-    const forgotPasswordEmail = container.resolve(ForgotPasswordEmailService);
+    const createUser = container.resolve(VerifyUserService);
 
-    await forgotPasswordEmail.execute({ email });
-
-    return res.send('Email sent');
-  }
-
-  public async changePassword(req: Request, res: Response): Promise<Response> {
-    const { id } = req.user;
-    const { password } = req.body;
-
-    const changePassword = container.resolve(ChangePasswordService);
-
-    await changePassword.execute({ id, password });
-
-    return res.send('Password Changed');
-  }
-
-  public async changeConfigs(req: Request, res: Response): Promise<Response> {
-    const { id } = req.user;
-    const { defaultFuel, defaultTransport, enableResoluteness } = req.body;
-
-    const changeConfigs = container.resolve(ChangeConfigsService);
-
-    const user = await changeConfigs.execute({
-      id, defaultFuel, defaultTransport, enableResoluteness,
+    const user = await createUser.execute({
+      phone, code,
     });
 
-    return res.json({
-      defaultFuel: user.defaultFuel,
-      defaultTransport: user.defaultTransport,
-      enableResoluteness: user.enableResoluteness,
-    });
+    return res.status(201).json(user);
   }
 }

@@ -12,17 +12,17 @@ export default class UsersRepository implements IUsersRepository {
     this.ormRepository = prisma.user;
   }
 
-  public async findByEmailWithRelations(email: string): Promise<User | null> {
-    const user = await this.ormRepository.findFirst({
-      where: { email },
-    });
+  // public async findByEmailWithRelations(email: string): Promise<User | null> {
+  //   const user = await this.ormRepository.findFirst({
+  //     where: { email },
+  //   });
 
-    return user;
-  }
+  //   return user;
+  // }
 
-  public async findByEmail(email: string): Promise<User | null> {
+  public async findByPhone(phone: string): Promise<User | null> {
     const user = await this.ormRepository.findFirst({
-      where: { email },
+      where: { phone },
     });
 
     return user;
@@ -46,14 +46,5 @@ export default class UsersRepository implements IUsersRepository {
     const user = await this.ormRepository.create({ data });
 
     return user;
-  }
-
-  public async findNearest(patientCep: string): Promise<number> {
-    const doctorSpecialityArray = await this.ormRepository.groupBy({
-      where: { companyId: id },
-      by: ['doctorSpeciality'],
-    });
-
-    return doctorSpecialityArray.length;
   }
 }

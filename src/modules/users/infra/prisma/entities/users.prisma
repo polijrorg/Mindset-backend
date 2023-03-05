@@ -1,21 +1,10 @@
 model User {
-  id                 String   @id @default(uuid())
-  name               String
-  email              String   @unique
-  password           String
-  defaultTransport   String   @default("Car")
-  defaultFuel        String   @default("Gasoline")
-  enableResoluteness Boolean  @default(true)
-  appointments       Appointment[]
-  created_at         DateTime @default(now())
+  id         String   @id @default(uuid())
+  name       String?
+  phone      String   @unique
+  avatar     String?
+  code       Int?
+  created_at DateTime @default(now())
 
   @@map("user")
-}
-
-model Appointment {
-  id  String @id @default(uuid())
-  companyId String
-  company User @relation(fields: [companyId], references: [id])
-
-  @@map("appointment")
 }
