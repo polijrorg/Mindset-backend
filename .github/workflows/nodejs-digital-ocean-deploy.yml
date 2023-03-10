@@ -60,3 +60,4 @@ jobs:
             cd ~/Mindset-backend 
             yarn prisma migrate deploy
             pm2 restart server
+
