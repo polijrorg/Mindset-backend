@@ -44,7 +44,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ".,!node_modules"
-          target: "~/Compensas-Backend"
+          target: "~/Mindset-backend "
 
       - name: Run production scripts on Digital Ocean
         uses: appleboy/ssh-action@master
