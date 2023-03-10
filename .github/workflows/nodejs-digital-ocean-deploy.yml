@@ -44,7 +44,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           password: ${{ secrets.SSH_PASSWORD }}
           source: ".,!node_modules"
-          target: "~/Compensas-Backend"
+          target: "~/LetsApp-Back"
 
       - name: Run production scripts on Digital Ocean
         uses: appleboy/ssh-action@master
@@ -57,6 +57,6 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             npm --help
-            cd ~/Compensas-Backend 
+            cd ~/LetsApp-Back
             yarn prisma migrate deploy
-            pm2 restart compensas
+            pm2 restart Letsapp
