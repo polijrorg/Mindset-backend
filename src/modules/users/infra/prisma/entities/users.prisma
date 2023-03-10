@@ -5,6 +5,16 @@ model User {
   avatar     String?
   code       Int?
   created_at DateTime @default(now())
+  Course     Course[]
 
   @@map("user")
+}
+
+model Course {
+  id String @id @default(uuid())
+
+  UserId User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@map("course")
 }

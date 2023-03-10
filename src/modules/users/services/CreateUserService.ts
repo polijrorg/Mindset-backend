@@ -27,7 +27,7 @@ export default class CreateUserService {
     //   code *= 10;
     // }
     // Para testes
-    const code = 121111;
+    const code = 111111;
 
     // if (userAlreadyExists) throw new AppError('User with same email already exists', 400);
 

@@ -8,6 +8,29 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Course {
+  id             String   @id @default(uuid())
+  UserId         User     @relation(fields: [userId], references: [id])
+  userId         String
+  name           String?
+  numberOfVideos Int
+  avatar         String?
+  createdBy      String
+  rating         Int
+  description    String
+  videoClasses   Video[]
+  created_at     DateTime @default(now())
+
+  @@map("course")
+}
+
+model Video {
+  id       String  @id @default(uuid())
+  name     String
+  Course   Course? @relation(fields: [courseId], references: [id])
+  courseId String?
+}
+
 model User {
   id         String   @id @default(uuid())
   name       String?
@@ -15,6 +38,7 @@ model User {
   avatar     String?
   code       Int?
   created_at DateTime @default(now())
+  Course     Course[]
 
   @@map("user")
 }
