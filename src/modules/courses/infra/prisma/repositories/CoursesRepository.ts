@@ -23,4 +23,15 @@ export default class CoursesRepository implements ICoursesRepository {
     const course = await this.ormRepository.create({ data });
     return course;
   }
+
+  public async listPopular(): Promise<Course[]> {
+    const course = await this.ormRepository.findMany({
+      take: 6,
+      orderBy: [
+        {
+          rating: 'desc',
+        }],
+    });
+    return course;
+  }
 }

@@ -36,6 +36,7 @@ export default class CreateCourseService {
     avatar,
     rating,
     userId,
+
   }: IRequest): Promise<Course> {
     // const userAlreadyExists = await this.usersRepository.findByEmailPhoneOrCpf(email, phone, cpf);
 
