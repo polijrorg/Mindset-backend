@@ -1,8 +1,8 @@
 interface IUpdateUserDTO {
   name: string;
   avatar:string;
-  phone:string;
-  code:number;
+password:string
+
 }
 
 export default IUpdateUserDTO;

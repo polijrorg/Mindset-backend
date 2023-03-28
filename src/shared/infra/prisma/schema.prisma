@@ -10,8 +10,6 @@ generator client {
 
 model Course {
   id             String   @id @default(uuid())
-  UserId         User     @relation(fields: [userId], references: [id])
-  userId         String
   name           String?
   numberOfVideos Int
   avatar         String?
@@ -19,7 +17,9 @@ model Course {
   rating         Int
   description    String
   videoClasses   Video[]
+  UserId         User     @relation(fields: [userId], references: [id])
   created_at     DateTime @default(now())
+  userId         String
 
   @@map("course")
 }
@@ -33,12 +33,12 @@ model Video {
 
 model User {
   id         String   @id @default(uuid())
-  name       String?
-  phone      String   @unique
-  avatar     String?
-  code       Int?
-  created_at DateTime @default(now())
   Course     Course[]
+  name       String
+  email      String   @unique
+  password   String
+  avatar     String?
+  created_at DateTime @default(now())
 
   @@map("user")
 }

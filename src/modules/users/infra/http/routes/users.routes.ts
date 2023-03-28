@@ -10,6 +10,5 @@ const usersRoutes = Router();
 const usersController = new UsersController();
 
 usersRoutes.post('/register', usersController.create);
-usersRoutes.post('/verify', usersController.verifyCode);
 
 export default usersRoutes;
