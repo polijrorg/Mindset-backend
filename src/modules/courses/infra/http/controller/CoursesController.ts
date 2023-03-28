@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import CreateCourseService from '@modules/courses/services/CreateCourseService';
 import listPopularService from '@modules/courses/services/listPopularService';
+import listByUserService from '@modules/courses/services/listByUserService';
 
 export default class CourseController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -35,5 +36,15 @@ export default class CourseController {
     const listPopular = await container.resolve(listPopularService);
     const list = await listPopular.execute();
     return res.status(201).json(list);
+  }
+
+  public async listById(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const listbyid = container.resolve(listByUserService);
+
+    const courses = await listbyid.execute(id);
+
+    return res.status(201).json(courses);
   }
 }

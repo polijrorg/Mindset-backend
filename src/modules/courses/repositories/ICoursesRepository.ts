@@ -6,6 +6,7 @@ interface ICoursesRepository {
   // findByEmailPhoneOrCpf(email: string, phone: string, cpf: string): Promise<User | undefined>;
   create(data: ICreateCourseDTO): Promise<Course>;
   listPopular(): Promise<Course[]>;
+  listById(id:string): Promise<Course[]>;
   // save(data: User): ;
 }
 
