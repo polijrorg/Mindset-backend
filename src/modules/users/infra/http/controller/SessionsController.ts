@@ -9,7 +9,6 @@ export default class SessionsController {
       email,
       password,
     } = req.body;
-
     const authenticateUser = container.resolve(AuthenticateUserService);
 
     const { user, token } = await authenticateUser.execute({ email, password });

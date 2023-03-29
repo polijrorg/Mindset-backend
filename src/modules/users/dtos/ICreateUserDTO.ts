@@ -1,6 +1,7 @@
 interface ICreateUserDTO {
-  phone:string;
-  code:number
+  name:string,
+  email:string,
+  password:string
 }
 
 export default ICreateUserDTO;
