@@ -10,4 +10,5 @@ const courseController = new CourseController();
 courseRoutes.post('/create', ensureAuthenticated, courseController.create);
 courseRoutes.get('/listPopular', courseController.listPopular);
 courseRoutes.get('/listById/:id', courseController.listById);
+courseRoutes.get('/searchCourses/:data', courseController.searchCourses);
 export default courseRoutes;

@@ -41,4 +41,12 @@ export default class CoursesRepository implements ICoursesRepository {
     });
     return course;
   }
+
+  public async search(data:string): Promise<Course[]> {
+    const course = await this.ormRepository.findMany({
+      take: 6,
+      where: { name: { contains: data } },
+    });
+    return course;
+  }
 }

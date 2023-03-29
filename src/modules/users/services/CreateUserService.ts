@@ -36,7 +36,7 @@ export default class CreateUserService {
 
     const user = this.usersRepository.create({
       name,
-      email: email.toLowerCase(),
+      email,
       password: hashedPassword,
     });
 
@@ -55,6 +55,7 @@ export default class CreateUserService {
         variables: { name },
       },
     });
+
     return user;
   }
 }
