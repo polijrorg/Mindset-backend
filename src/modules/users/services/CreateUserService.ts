@@ -3,7 +3,6 @@ import { inject, injectable } from 'tsyringe';
 import { User } from '@prisma/client';
 import path from 'path';
 
-// import AppError from '@shared/errors/AppError';
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
 
 import AppError from '@shared/errors/AppError';
@@ -34,13 +33,11 @@ export default class CreateUserService {
     // if (userAlreadyExists) throw new AppError('User with same email already exists', 400);
     const hashedPassword = await this.hashProvider.generateHash(password);
 
-    const user = this.usersRepository.create({
+    const user = await this.usersRepository.create({
       name,
       email,
       password: hashedPassword,
     });
-
-    // ...
 
     const templateDataFile = path.resolve(__dirname, '..', 'views', 'create_account.hbs');
 
