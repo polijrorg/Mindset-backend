@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import { container } from 'tsyringe';
 
 import CreateVideoClassesService from '@modules/courses/services/CreateCourseService';
@@ -25,6 +26,7 @@ export default class CourseController {
       rating,
       avatar,
       userId,
+      introVideo
     });
 
     return res.status(201).json(user);

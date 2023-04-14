@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import { Course } from '@prisma/client';
+
 import ICoursesRepository from '../repositories/ICoursesRepository';
 
 @injectable()

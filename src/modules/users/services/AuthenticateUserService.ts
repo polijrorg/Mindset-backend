@@ -1,12 +1,15 @@
 import { inject, injectable } from 'tsyringe';
+
 import { sign } from 'jsonwebtoken';
 
 import { User } from '@prisma/client';
 
 import AppError from '@shared/errors/AppError';
+
 import authConfig from '@config/auth';
 
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
+
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
@@ -25,7 +28,7 @@ export default class AuthenticateUserService {
   ) { }
 
   public async execute({ email, password }: IRequest): Promise<{ user: User, token: string }> {
-    const user = await this.usersRepository.findByEmailWithRelations(email);
+    const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
       throw new AppError('Incorrect email/password combination', 401);

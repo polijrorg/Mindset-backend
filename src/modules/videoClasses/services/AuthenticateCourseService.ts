@@ -1,10 +1,13 @@
 // import { inject, injectable } from 'tsyringe';
+
 // import { sign } from 'jsonwebtoken';
 
 // import AppError from '@shared/errors/AppError';
+
 // import authConfig from '@config/auth';
 
 // import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
+
 // import IUsersRepository from '../repositories/ICoursesRepository';
 
 // interface IRequest {

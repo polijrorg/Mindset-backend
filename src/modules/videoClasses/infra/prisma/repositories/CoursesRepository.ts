@@ -1,7 +1,9 @@
 import prisma from '@shared/infra/prisma/client';
+
 import { Course, Prisma } from '@prisma/client';
 
 import ICreateCourseDTO from '@modules/courses/dtos/ICreateCourseDTO';
+
 import ICoursesRepository from '@modules/courses/repositories/ICoursesRepository';
 
 export default class CoursesRepository implements ICoursesRepository {

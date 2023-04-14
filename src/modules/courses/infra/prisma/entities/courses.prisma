@@ -1,15 +1,18 @@
 model Course {
   id             String   @id @default(uuid())
   name           String?
-  numberOfVideos Int
-  avatar         String?
-  createdBy      String
-  rating         Int
   description    String
+  introVideo     String
+  numberOfVideos Int
+  rating         Float
+  price          Float
+  avatar         String?
   videoClasses   Video[]
+  createdBy      String?
   UserId         User     @relation(fields: [userId], references: [id])
-  created_at     DateTime @default(now())
   userId         String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @default(now())
 
   @@map("course")
 }
