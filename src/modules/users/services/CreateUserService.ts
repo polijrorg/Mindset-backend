@@ -1,12 +1,15 @@
 import { inject, injectable } from 'tsyringe';
 
 import { User } from '@prisma/client';
+
 import path from 'path';
 
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
 
 import AppError from '@shared/errors/AppError';
+
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
+
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
@@ -21,8 +24,10 @@ export default class CreateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
     @inject('HashProvider')
     private hashProvider: IHashProvider,
+
     @inject('MailProvider')
     private mailProvider: IMailProvider,
   ) { }

@@ -1,8 +1,11 @@
 import { inject, injectable } from 'tsyringe';
 
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
+
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
+
 import { Course } from '@prisma/client';
+
 import ICoursesRepository from '../repositories/ICoursesRepository';
 
 interface IRequest {
@@ -12,7 +15,9 @@ interface IRequest {
   createdBy: string;
   description:string;
   rating:number;
-  userId:string
+  userId:string;
+  introVideo:string;
+  price:number;
 }
 
 @injectable()
@@ -36,6 +41,8 @@ export default class CreateCourseService {
     avatar,
     rating,
     userId,
+    introVideo,
+    price,
 
   }: IRequest): Promise<Course> {
     // const userAlreadyExists = await this.usersRepository.findByEmailPhoneOrCpf(email, phone, cpf);
@@ -51,6 +58,8 @@ export default class CreateCourseService {
       description,
       rating,
       userId,
+      introVideo,
+      price,
     });
 
     return course;

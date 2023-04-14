@@ -1,8 +1,11 @@
 import { inject, injectable } from 'tsyringe';
 
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
+
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
+
 import { Course } from '@prisma/client';
+
 import ICoursesRepository from '../repositories/ICoursesRepository';
 
 interface IRequest {

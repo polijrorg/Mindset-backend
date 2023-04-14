@@ -16,6 +16,8 @@ export default class CourseController {
       rating,
       avatar,
       userId,
+      introVideo,
+      price,
     } = req.body;
 
     const createUser = container.resolve(CreateCourseService);
@@ -28,6 +30,8 @@ export default class CourseController {
       rating,
       avatar,
       userId,
+      introVideo,
+      price,
     });
 
     return res.status(201).json(user);
