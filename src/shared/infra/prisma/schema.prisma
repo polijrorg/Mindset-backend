@@ -20,8 +20,8 @@ model Course {
   UserId         User     @relation(fields: [userId], references: [id])
   created_at     DateTime @default(now())
   userId         String
-  introVideo     String?
-  price          Float
+  introVideo     String
+  price          Int?
   updated_at     DateTime @default(now())
 
   @@map("course")
