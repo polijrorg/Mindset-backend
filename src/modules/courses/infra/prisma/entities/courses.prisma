@@ -2,12 +2,12 @@ model Course {
   id             String   @id @default(uuid())
   name           String?
   description    String
-  introVideo     String
+  introVideo     String?
   numberOfVideos Int
   rating         Float
   price          Float
   avatar         String?
-  videoClasses   Video[]
+  
   createdBy      String?
   UserId         User     @relation(fields: [userId], references: [id])
   userId         String
@@ -20,8 +20,6 @@ model Course {
 model Video {
   id   String @id @default(uuid())
   name String
-
-  Course   Course? @relation(fields: [courseId], references: [id])
   courseId String?
 }
 
