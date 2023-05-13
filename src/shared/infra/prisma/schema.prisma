@@ -20,7 +20,7 @@ model Course {
   UserId         User     @relation(fields: [userId], references: [id])
   created_at     DateTime @default(now())
   userId         String
-  introVideo     String
+  introVideo     String?
   price          Float
   updated_at     DateTime @default(now())
 
