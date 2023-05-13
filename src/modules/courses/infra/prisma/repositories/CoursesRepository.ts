@@ -51,4 +51,18 @@ export default class CoursesRepository implements ICoursesRepository {
     });
     return course;
   }
+
+  public async findById(id:string): Promise<Course|null> {
+    const course = await this.ormRepository.findUnique({
+
+      where: { id },
+    });
+    return course;
+  }
+
+  public async uploadVideo(id: string, video: string): Promise<Course> {
+    const user = await this.ormRepository.update({ where: { id }, data: { introVideo: video } });
+
+    return user;
+  }
 }

@@ -50,4 +50,10 @@ export default class UsersRepository implements IUsersRepository {
 
     return userEmail;
   }
+
+  public async delete(id:string): Promise<User> {
+    const user = await this.ormRepository.delete({ where: { id } });
+
+    return user;
+  }
 }

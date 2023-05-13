@@ -9,5 +9,6 @@ const usersRoutes = Router();
 const usersController = new UsersController();
 
 usersRoutes.post('/register', usersController.create);
+usersRoutes.delete('/delete/:id', usersController.deleteUser);
 
 export default usersRoutes;

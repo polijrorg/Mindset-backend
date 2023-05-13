@@ -5,6 +5,8 @@ import CreateCourseService from '@modules/courses/services/CreateCourseService';
 import listPopularService from '@modules/courses/services/listPopularService';
 import listByUserService from '@modules/courses/services/listByUserService';
 import searchCoursesService from '@modules/courses/services/searchCoursesService';
+import AppError from '@shared/errors/AppError';
+import UploadUserService from '@modules/courses/services/UploadUserService';
 
 export default class CourseController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -61,5 +63,22 @@ export default class CourseController {
     const courses = await search.execute(data);
 
     return res.status(201).json(courses);
+  }
+
+  public async upload(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const video = req.file;
+
+    if (!video) {
+      throw new AppError('file not found', 400);
+    }
+    const uploadUser = container.resolve(UploadUserService);
+
+    const user = await uploadUser.execute({
+      id,
+      photoFile: video as Express.Multer.File,
+    });
+
+    return res.status(201).json(user);
   }
 }

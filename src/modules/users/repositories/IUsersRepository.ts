@@ -10,6 +10,7 @@ interface IUsersRepository {
   update(id: string, data: IUpdateUserDTO): Promise<User>;
   create(data: ICreateUserDTO): Promise<User>;
   findByEmail(email:string):Promise<User | null>;
+  delete(id:string): Promise<User>;
 
 }
 

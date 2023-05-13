@@ -7,6 +7,9 @@ interface ICoursesRepository {
   listPopular(): Promise<Course[]>;
   listById(id:string): Promise<Course[]>;
   search(data:string): Promise<Course[]>;
+  findById(id:string): Promise<Course|null>;
+  uploadVideo(id: string, video: string): Promise<Course>;
+
   // findByEmailWithRelations(email: string): Promise<User | undefined>;
   // findByEmailPhoneOrCpf(email: string, phone: string, cpf: string): Promise<User | undefined>;
   // save(data: User): ;
