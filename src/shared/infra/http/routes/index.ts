@@ -11,7 +11,7 @@ import coursesRoutes from '@modules/courses/infra/http/routes/courses.routes';
 
 const routes = Router();
 
-routes.use('', usersRoutes);
+routes.use('/users', usersRoutes);
 routes.use('/sessions', sessionsRoutes);
 routes.use('/courses', coursesRoutes);
 
