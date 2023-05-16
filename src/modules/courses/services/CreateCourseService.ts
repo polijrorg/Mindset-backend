@@ -1,9 +1,5 @@
 import { inject, injectable } from 'tsyringe';
 
-import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
-
-import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
-
 import { Course } from '@prisma/client';
 
 import ICoursesRepository from '../repositories/ICoursesRepository';
@@ -26,11 +22,6 @@ export default class CreateCourseService {
     @inject('CoursesRepository')
     private coursesRepository: ICoursesRepository,
 
-    @inject('HashProvider')
-    private hashProvider: IHashProvider,
-
-    @inject('MailProvider')
-    private mailProvider: IMailProvider,
   ) { }
 
   public async execute({
@@ -61,7 +52,7 @@ export default class CreateCourseService {
       introVideo,
       price,
     });
-
+    console.log(userId);
     return course;
   }
 }
