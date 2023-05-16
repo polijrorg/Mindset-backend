@@ -26,6 +26,6 @@ model Video {
 }
 
 model User {
-  id     String   @id
+  id     String   @id @default(uuid())
   Course Course[]
 }

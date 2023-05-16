@@ -22,8 +22,8 @@ export default class CourseController {
       price,
     } = req.body;
 
-    const createUser = container.resolve(CreateCourseService);
-
+    const createUser = await container.resolve(CreateCourseService);
+    console.log(createUser);
     const user = await createUser.execute({
       name,
       numberOfVideos,
