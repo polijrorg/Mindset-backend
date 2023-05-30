@@ -17,7 +17,7 @@ model Course {
   rating         Int
   description    String
   videoClasses   Video[]
-  UserId         User     @relation(fields: [userId], references: [id])
+  UserId         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   created_at     DateTime @default(now())
   userId         String
   introVideo     String

@@ -7,6 +7,7 @@ import listByUserService from '@modules/courses/services/listByUserService';
 import searchCoursesService from '@modules/courses/services/searchCoursesService';
 import AppError from '@shared/errors/AppError';
 import UploadUserService from '@modules/courses/services/UploadUserService';
+import GetByIdService from '@modules/courses/services/GetByIdService';
 
 export default class CourseController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -61,6 +62,16 @@ export default class CourseController {
     const search = container.resolve(searchCoursesService);
 
     const courses = await search.execute(data);
+
+    return res.status(201).json(courses);
+  }
+
+  public async GetById(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const search = container.resolve(GetByIdService);
+
+    const courses = await search.execute(id);
 
     return res.status(201).json(courses);
   }

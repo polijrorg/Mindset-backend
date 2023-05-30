@@ -13,7 +13,7 @@ export default class listByUserService {
   ) { }
 
   public async execute(id:string): Promise<Course[]> {
-    const courses = await this.coursesRepository.listById(id);
+    const courses = await this.coursesRepository.listByUserId(id);
 
     return courses;
   }
