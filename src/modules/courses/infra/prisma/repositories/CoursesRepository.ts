@@ -37,7 +37,7 @@ export default class CoursesRepository implements ICoursesRepository {
     return course;
   }
 
-  public async listById(id:string): Promise<Course[]> {
+  public async listByUserId(id:string): Promise<Course[]> {
     const course = await this.ormRepository.findMany({
       where: { userId: id },
     });

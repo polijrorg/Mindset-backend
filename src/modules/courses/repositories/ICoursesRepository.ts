@@ -5,7 +5,7 @@ import ICreateCourseDTO from '../dtos/ICreateCourseDTO';
 interface ICoursesRepository {
   create(data: ICreateCourseDTO): Promise<Course>;
   listPopular(): Promise<Course[]>;
-  listById(id:string): Promise<Course[]>;
+  listByUserId(id:string): Promise<Course[]>;
   search(data:string): Promise<Course[]>;
   findById(id:string): Promise<Course|null>;
   uploadVideo(id: string, video: string): Promise<Course>;
