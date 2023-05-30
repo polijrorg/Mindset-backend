@@ -24,7 +24,6 @@ export default class CourseController {
     } = req.body;
 
     const createUser = await container.resolve(CreateCourseService);
-    console.log(createUser);
     const user = await createUser.execute({
       name,
       numberOfVideos,
@@ -69,11 +68,11 @@ export default class CourseController {
   public async GetById(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
-    const search = container.resolve(GetByIdService);
+    const courses = container.resolve(GetByIdService);
 
-    const courses = await search.execute(id);
+    const course = await courses.execute(id);
 
-    return res.status(201).json(courses);
+    return res.status(201).json(course);
   }
 
   public async upload(req: Request, res: Response): Promise<Response> {
