@@ -6,7 +6,7 @@ import IMailProvider from '@shared/container/providers/MailProvider/models/IMail
 
 import { Course } from '@prisma/client';
 
-import ICoursesRepository from '../repositories/ICoursesRepository';
+import ICoursesRepository from '../repositories/IVideoClassesRepository';
 
 interface IRequest {
   name: string;

@@ -4,10 +4,10 @@ interface ICreateCourseDTO {
   createdBy: string;
   price:number;
   description:string;
-  rating:number;
   avatar:string;
   userId:string;
-  introVideo:string,
+  introVideo:string;
+  rating:number;
 
 }
 

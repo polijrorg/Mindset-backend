@@ -9,38 +9,44 @@ generator client {
 }
 
 model Course {
-  id             String   @id @default(uuid())
-  name           String?
-  numberOfVideos Int
-  avatar         String?
-  createdBy      String
-  rating         Int
-  description    String
-  videoClasses   Video[]
-  UserId         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  created_at     DateTime @default(now())
+  id             String         @id @default(uuid())
+  videoClasses   VideoClasses[]
+  UserId         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String
+  name           String?
+  description    String
   introVideo     String
-  price          Int?
-  updated_at     DateTime @default(now())
+  numberOfVideos Int
+  rating         Decimal?
+  price          Float?
+  avatar         String?
+  createdBy      String?
+  created_at     DateTime       @default(now())
+  updated_at     DateTime       @default(now())
 
   @@map("course")
 }
 
-model Video {
-  id       String  @id @default(uuid())
-  name     String
+model VideoClasses {
+  id            String @id @default(uuid())
+  name          String
+  createdBy     String
+  numberOfClass Int
+  file          String
+  description   String
+  courseId String
   Course   Course? @relation(fields: [courseId], references: [id])
-  courseId String?
+
+  @@map("videoClasses")
 }
 
 model User {
   id         String   @id @default(uuid())
-  Course     Course[]
   name       String
   email      String   @unique
   password   String
   avatar     String?
+  Course     Course[]
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
