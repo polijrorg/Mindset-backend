@@ -17,7 +17,7 @@ model Course {
   description    String
   introVideo     String
   numberOfVideos Int
-  rating         Decimal?
+  rating         Float?
   price          Float?
   avatar         String?
   createdBy      String?
@@ -34,8 +34,8 @@ model VideoClasses {
   numberOfClass Int
   file          String
   description   String
-  courseId String
-  Course   Course? @relation(fields: [courseId], references: [id])
+  CourseId      Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId      String
 
   @@map("videoClasses")
 }
