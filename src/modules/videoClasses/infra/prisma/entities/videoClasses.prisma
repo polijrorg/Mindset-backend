@@ -1,0 +1,17 @@
+model VideoClasses {
+  id            String @id @default(uuid())
+  name          String
+  createdBy     String
+  numberOfClass Int
+  file          String
+  description   String
+  CourseId      Course @relation(fields: [courseId], references: [id])
+  courseId      String
+
+  @@map("videoClasses")
+}
+
+model Course {
+  id           String         @id @default(uuid())
+  videoClasses VideoClasses[]
+}
