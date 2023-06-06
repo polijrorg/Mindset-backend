@@ -5,7 +5,7 @@ model VideoClasses {
   numberOfClass Int
   file          String
   description   String
-  CourseId      Course @relation(fields: [courseId], references: [id])
+  CourseId      Course @relation(fields: [courseId], references: [id],onDelete: Cascade)
   courseId      String
 
   @@map("videoClasses")

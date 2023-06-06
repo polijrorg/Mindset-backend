@@ -9,7 +9,7 @@ model Course {
   avatar         String?
   videoClasses   VideoClasses[]
   createdBy      String?
-  UserId         User     @relation(fields: [userId], references: [id])
+  UserId         User     @relation(fields: [userId], references: [id],onDelete: Cascade)
   userId         String
   created_at     DateTime @default(now())
   updated_at     DateTime @default(now())
@@ -20,7 +20,7 @@ model Course {
 model VideoClasses {
   id   String @id @default(uuid())
 
-  Course   Course? @relation(fields: [courseId], references: [id])
+  CourseId   Course? @relation(fields: [courseId], references: [id],onDelete: Cascade)
   courseId String?
 }
 
