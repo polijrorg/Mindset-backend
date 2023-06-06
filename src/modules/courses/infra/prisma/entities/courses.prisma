@@ -4,10 +4,10 @@ model Course {
   description    String
   introVideo     String
   numberOfVideos Int
-  rating         Float
-  price          Int?
+  rating         Float?
+  price          Float?
   avatar         String?
-  videoClasses   Video[]
+  videoClasses   VideoClasses[]
   createdBy      String?
   UserId         User     @relation(fields: [userId], references: [id])
   userId         String
@@ -17,9 +17,8 @@ model Course {
   @@map("course")
 }
 
-model Video {
+model VideoClasses {
   id   String @id @default(uuid())
-  name String
 
   Course   Course? @relation(fields: [courseId], references: [id])
   courseId String?

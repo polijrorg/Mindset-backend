@@ -8,6 +8,7 @@ import searchCoursesService from '@modules/courses/services/searchCoursesService
 import AppError from '@shared/errors/AppError';
 import UploadUserService from '@modules/courses/services/UploadUserService';
 import GetByIdService from '@modules/courses/services/GetByIdService';
+import RateCourseByIdService from '@modules/courses/services/RateCourseByIdService';
 
 export default class CourseController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -53,6 +54,15 @@ export default class CourseController {
     const courses = await listbyid.execute(id);
 
     return res.status(201).json(courses);
+  }
+
+  public async rate(req: Request, res: Response): Promise<Response> {
+    const { id, rate } = req.body;
+    const rating = container.resolve(RateCourseByIdService);
+
+    const course = await rating.execute(id, rate);
+
+    return res.status(201).json(course);
   }
 
   public async searchCourses(req: Request, res: Response): Promise<Response> {

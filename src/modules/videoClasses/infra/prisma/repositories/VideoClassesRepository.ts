@@ -1,16 +1,13 @@
 import prisma from '@shared/infra/prisma/client';
 
-import { Course, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+import IVideoClassesRepository from '@modules/videoClasses/repositories/IVideoClassesRepository';
 
-import ICreateCourseDTO from '@modules/courses/dtos/ICreateCourseDTO';
-
-import ICoursesRepository from '@modules/courses/repositories/ICoursesRepository';
-
-export default class CoursesRepository implements ICoursesRepository {
-  private ormRepository: Prisma.CourseDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>
+export default class VideosclasesRepositoryr implements IVideoClassesRepository {
+  private ormRepository: Prisma.VideoDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>
 
   constructor() {
-    this.ormRepository = prisma.course;
+    this.ormRepository = prisma.video;
   }
 
   // public async findByEmailWithRelations(email: string): Promise<User | null> {

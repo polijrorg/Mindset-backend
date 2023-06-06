@@ -65,4 +65,10 @@ export default class CoursesRepository implements ICoursesRepository {
 
     return user;
   }
+
+  public async updateRating(id: string, data: number): Promise<Course> {
+    const user = await this.ormRepository.update({ where: { id }, data: { rating: data } });
+
+    return user;
+  }
 }

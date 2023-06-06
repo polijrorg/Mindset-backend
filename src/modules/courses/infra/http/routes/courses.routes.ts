@@ -14,6 +14,7 @@ courseRoutes.post('/create', ensureAuthenticated, courseController.create);
 courseRoutes.get('/listPopular', courseController.listPopular);
 courseRoutes.get('/listById/:id', courseController.listById);
 courseRoutes.get('/getById/:id', courseController.GetById);
+courseRoutes.post('/rating', courseController.rate);
 courseRoutes.get('/searchCourses/:data', courseController.searchCourses);
 courseRoutes.post('/upload/:id', upload.single('photo'), courseController.upload);
 

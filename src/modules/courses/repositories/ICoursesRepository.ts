@@ -4,6 +4,7 @@ import ICreateCourseDTO from '../dtos/ICreateCourseDTO';
 
 interface ICoursesRepository {
   create(data: ICreateCourseDTO): Promise<Course>;
+  updateRating(id:string, data: number): Promise<Course>;
   listPopular(): Promise<Course[]>;
   listByUserId(id:string): Promise<Course[]>;
   search(data:string): Promise<Course[]>;
