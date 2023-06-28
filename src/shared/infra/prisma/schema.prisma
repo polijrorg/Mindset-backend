@@ -52,3 +52,17 @@ model User {
 
   @@map("user")
 }
+
+model Producer {
+  id           String @id @default(uuid())
+  name         String
+  cpf          String
+  birthdayDate String
+  course       String
+  rgFront      String
+  rgBack       String
+  rgNumber     String
+  curriculum   String
+
+  @@map("producer")
+}

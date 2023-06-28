@@ -14,6 +14,11 @@ import CoursesRepository from '@modules/courses/infra/prisma/repositories/Course
 import IVideoClassesRepository from '@modules/videoClasses/repositories/IVideoClassesRepository';
 import VideoClassesRepository from '@modules/videoClasses/infra/prisma/repositories/VideoClassesRepository';
 
+// Producers
+import IProducersRepository from '@modules/producers/repositories/IProducersRepository';
+import ProducersRepository from '@modules/producers/infra/prisma/repositories/ProducersRepository';
+
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 container.registerSingleton<ICoursesRepository>('CoursesRepository', CoursesRepository);
 container.registerSingleton<IVideoClassesRepository>('VideoClassesRepository', VideoClassesRepository);
+container.registerSingleton<IProducersRepository>('ProducersRepository', ProducersRepository);
