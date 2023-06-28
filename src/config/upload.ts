@@ -25,7 +25,6 @@ const storageTypes = (type: 'audio' | 'user' | 'music'|'producer') => ({
     contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: 'public-read',
     key: (_req, file, cb) => {
-      console.log(_req, file);
       let pasta = '';
       if (type === 'user') {
         pasta = 'UserPhoto/';
