@@ -8,7 +8,7 @@ import { Request } from 'express';
 
 export const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp', 'uploads');
 
-const storageTypes = (type: 'audio' | 'user' | 'music') => ({
+const storageTypes = (type: 'audio' | 'user' | 'music'|'producer') => ({
   local: multer.diskStorage({
     destination: tmpFolder,
     filename(req, file, cb) {
@@ -33,6 +33,8 @@ const storageTypes = (type: 'audio' | 'user' | 'music') => ({
         pasta = `${file.fieldname === 'photo' ? 'AudioPhoto/' : 'audioFiles/'}`;
       } else if (type === 'music') {
         pasta = `${file.filename === 'photo' ? 'MusicPhoto/' : 'musicFiles/'}`;
+      } else if (type === 'producer') {
+        pasta = 'ProducerPhoto/';
       }
 
       const filename = `${pasta}${Date.now()}-${file.originalname.replace(/\s/g, '_')}`;
@@ -44,7 +46,7 @@ const storageTypes = (type: 'audio' | 'user' | 'music') => ({
 
 export const fileSizeLimit = 10 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024;
 
-export const UploadFunction = (type: 'audio' | 'user' | 'music'): multer.Options => ({
+export const UploadFunction = (type: 'audio' | 'user' | 'music'|'producer'): multer.Options => ({
   // directory: tmpFolder,
   storage: storageTypes(type)[process.env.STORAGE_TYPE as 'local' | 's3' ?? 'local'],
   // localStorage: storageTypes.local,
@@ -61,6 +63,14 @@ export const UploadFunction = (type: 'audio' | 'user' | 'music'): multer.Options
       'image/png',
       'video/mp4',
     ] : [];
+
+    if (type === 'producer') {
+      allowedMimes = ['image/jpeg',
+        'image/jpg',
+        'image/png',
+        'video/mp4',
+        'application/pdf'];
+    }
 
     if (type === 'audio') {
       if (file.fieldname === 'photo') {
