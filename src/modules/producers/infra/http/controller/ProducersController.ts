@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 export default class ProducersController {
+  
   public async create(req: Request, res: Response): Promise<Response> {
     const {
       name,
